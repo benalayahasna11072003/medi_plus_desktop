@@ -49,8 +49,29 @@ public class UserService implements ICrud<User> {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             User user = new User();
-            user.setId(rs.getInt(1));
-            user.setEmail(email);
+            user.setId(rs.getInt("id"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+
+            return user;
+        } else {
+            return null; // No user found with the given email
+        }
+
+    }
+    public User findById(int id) throws SQLException {
+        String query = "SELECT * FROM id_user WHERE id = ?";
+
+        PreparedStatement ps;
+        ps = cnx.prepareStatement(query);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
 

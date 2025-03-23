@@ -19,6 +19,14 @@ public class Avis {
         return note;
     }
 
+    public void setRef(int ref) {
+        this.ref = ref;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
+    }
+
     public void setNote(Integer note) {
         this.note = note;
     }
