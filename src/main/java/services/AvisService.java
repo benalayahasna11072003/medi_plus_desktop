@@ -29,17 +29,19 @@ public class AvisService implements ICrud<Avis> {
 
     @Override
     public void updateOne(Avis avis) throws SQLException {
-        String req = "UPDATE `avis` SET `ref`=?, `id_user`=?, `professional_id`=?, `note`=?, `commentaire`=?";
+        String req = "UPDATE `avis` SET `id_user`=?, `professional_id`=?, `note`=?, `commentaire`=?, `date_avis`=? WHERE `ref`=?";
 
         PreparedStatement ps = cnx.prepareStatement(req);
+        ps.setInt(1, avis.getUser().getId());
+        ps.setInt(2, avis.getProfessional().getId());
+        ps.setInt(3, avis.getNote());
+        ps.setString(4, avis.getCommentaire());
+        ps.setDate(5, new java.sql.Date(avis.getDateAvis().getTime()));
+        ps.setInt(6, avis.getRef());
 
-        ps.setInt(1, avis.getRef());
-        ps.setInt(2, avis.getUser().getId());
-        ps.setInt(3, avis.getProfessional().getId());
-        ps.setInt(4, avis.getNote());
-        ps.setString(5, avis.getCommentaire());
         ps.executeUpdate();
     }
+
 
     @Override
     public void deleteOne(Avis avis) throws SQLException {
