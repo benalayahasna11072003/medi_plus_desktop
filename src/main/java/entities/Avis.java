@@ -62,4 +62,16 @@ public class Avis {
     public void setProfessional(User professional) {
         this.professional = professional;
     }
+
+    @Override
+    public String toString() {
+        return "Avis{" +
+                "ref=" + ref +
+                ", note=" + note +
+                ", commentaire='" + commentaire + '\'' +
+                ", dateAvis=" + dateAvis +
+                ", user=" + user +
+                ", professional=" + professional +
+                '}';
+    }
 }

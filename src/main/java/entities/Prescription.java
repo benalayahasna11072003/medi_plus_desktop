@@ -41,4 +41,14 @@ public class Prescription {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Prescription{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", consultation=" + consultation +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

@@ -62,4 +62,15 @@ public class Bloc {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "Bloc{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", statut='" + statut + '\'' +
+                ", statutSpec=" + statutSpec +
+                '}';
+    }
 }

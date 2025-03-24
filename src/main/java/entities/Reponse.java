@@ -54,4 +54,16 @@ public class Reponse {
     public void setMadeBy(User madeBy) {
         this.madeBy = madeBy;
     }
+
+    @Override
+    public String toString() {
+        return "Reponse{" +
+                "id=" + id +
+                ", reponse='" + reponse + '\'' +
+                ", dateReponse=" + dateReponse +
+                ", avis=" + avis +
+                ", professional=" + professional +
+                ", madeBy=" + madeBy +
+                '}';
+    }
 }

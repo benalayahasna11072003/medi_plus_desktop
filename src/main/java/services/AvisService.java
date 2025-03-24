@@ -53,7 +53,7 @@ public class AvisService implements ICrud<Avis> {
     @Override
     public List<Avis> selectAll() throws SQLException {
         List<Avis> aviss = new ArrayList<>();
-        String query = "SELECT * FROM user";
+        String query = "SELECT * FROM avis";
         PreparedStatement ps;
 
         ps = cnx.prepareStatement(query);
@@ -64,12 +64,13 @@ public class AvisService implements ICrud<Avis> {
             avis.setRef(rs.getInt(("ref")));
             avis.setNote(rs.getInt("note"));
             avis.setCommentaire(rs.getString("commentaire"));
+            avis.setDateAvis(rs.getDate("date_avis"));
 
             int idUser = rs.getInt("id_user");
             User user = userService.findById(idUser);
             avis.setUser(user);
 
-            int idProfessional = rs.getInt("id_professional");
+            int idProfessional = rs.getInt("professional_id");
             User profesional = userService.findById(idProfessional);
             avis.setProfessional(profesional);
             // Set other properties

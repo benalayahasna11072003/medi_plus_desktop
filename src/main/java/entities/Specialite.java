@@ -65,4 +65,17 @@ public class Specialite {
     public void setStatut(String statut) {
         this.statut = statut;
     }
+
+    @Override
+    public String toString() {
+        return "Specialite{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", dureeConsultation=" + dureeConsultation +
+                ", tarif=" + tarif +
+                ", idBloc=" + idBloc +
+                ", statut='" + statut + '\'' +
+                '}';
+    }
 }

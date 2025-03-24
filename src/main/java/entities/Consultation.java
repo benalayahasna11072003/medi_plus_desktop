@@ -81,4 +81,18 @@ public class Consultation {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+
+    @Override
+    public String toString() {
+        return "Consultation{" +
+                "id=" + id +
+                ", dateConsultation=" + dateConsultation +
+                ", user=" + user +
+                ", professionnel=" + professionnel +
+                ", rendezVous=" + rendezVous +
+                ", prescriptions=" + prescriptions +
+                ", reason='" + reason + '\'' +
+                '}';
+    }
 }

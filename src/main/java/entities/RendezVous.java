@@ -72,4 +72,16 @@ public class RendezVous {
     public void rejectRdv() {
         this.statusRdv = "refusé";
     }
+
+    @Override
+    public String toString() {
+        return "RendezVous{" +
+                "id=" + id +
+                ", dateRdv=" + dateRdv +
+                ", statusRdv='" + statusRdv + '\'' +
+                ", user=" + user +
+                ", professional=" + professional +
+                ", consultation=" + consultation +
+                '}';
+    }
 }
