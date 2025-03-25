@@ -70,11 +70,11 @@ public class UserService implements ICrud<User> {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             User user = new User();
+
             user.setId(rs.getInt("id"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
-
 
             return user;
         } else {

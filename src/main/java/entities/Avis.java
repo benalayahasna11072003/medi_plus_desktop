@@ -27,9 +27,6 @@ public class Avis {
         this.note = note;
     }
 
-    public void setNote(Integer note) {
-        this.note = note;
-    }
 
     public String getCommentaire() {
         return commentaire;
