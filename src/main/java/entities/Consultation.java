@@ -8,9 +8,13 @@ public class Consultation {
 
     private int id;
     private LocalDate dateConsultation;
+    //one to many
     private User user;
+    //one to many
     private User professionnel;
+    //one to one
     private RendezVous rendezVous;
+    //many to one
     private List<Prescription> prescriptions = new ArrayList<>();
     private String reason;
 

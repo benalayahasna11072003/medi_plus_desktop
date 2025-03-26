@@ -19,7 +19,7 @@ public class AvisService implements ICrud<Avis> {
     public void insertOne(Avis avis) throws SQLException {
         String req = "INSERT INTO `avis`( `id_user`, `professional_id`, `note`,`commentaire`) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(req);
-        //ps.setInt(1, avis.getRef());
+
         ps.setInt(1, avis.getUser().getId());
         ps.setInt(2, avis.getUser().getId());
         ps.setInt(3, 3);

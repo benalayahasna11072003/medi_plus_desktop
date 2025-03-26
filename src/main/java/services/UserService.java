@@ -13,6 +13,12 @@ import java.util.List;
 public class UserService implements ICrud<User> {
     private Connection cnx = JDBConnection.getInstance().getCnx();
 
+
+    public UserService (){
+
+        User user = new User();
+        JDBConnection.getInstance();
+    }
     @Override
     public void insertOne(User user) throws SQLException {
         //the entitie name is 'User' in java but in mysql is 'id_user', be careful into other methodes!!!!!!
