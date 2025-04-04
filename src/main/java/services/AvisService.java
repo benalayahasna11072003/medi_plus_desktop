@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AvisService implements ICrud<Avis> {
+
+    private final int staticCurrentUserId = 22;
     private final UserService userService = new UserService();
     private Connection cnx = JDBConnection.getInstance().getCnx();
 
@@ -21,8 +23,8 @@ public class AvisService implements ICrud<Avis> {
         String req = "INSERT INTO `avis`( `id_user`, `professional_id`, `note`,`commentaire`,`date_avis`) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(req);
         ps.setInt(1, avis.getUser().getId());
-        ps.setInt(2, avis.getUser().getId());
-        ps.setInt(3, 3);
+        ps.setInt(2, avis.getProfessional().getId());
+        ps.setInt(3, avis.getNote());
         ps.setString(4, avis.getCommentaire());
         ps.setDate(5, avis.getDateAvis());
 
@@ -34,7 +36,7 @@ public class AvisService implements ICrud<Avis> {
         String req = "UPDATE `avis` SET `id_user`=?, `professional_id`=?, `note`=?, `commentaire`=?, `date_avis`=? WHERE `ref`=?";
 
         PreparedStatement ps = cnx.prepareStatement(req);
-        ps.setInt(1, avis.getUser().getId());
+        ps.setInt(1, staticCurrentUserId);
         ps.setInt(2, avis.getProfessional().getId());
         ps.setInt(3, avis.getNote());
         ps.setString(4, avis.getCommentaire());
@@ -113,5 +115,34 @@ public class AvisService implements ICrud<Avis> {
             return null; // No avis found with the given ref
         }
     }
+    public List<User> selectAllProfessional() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM id_user";
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            try {
+            if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.ROLE_PROFESSIONAL)) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setNameUser(rs.getString("name_user"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+                // Set other properties
+                users.add(user);
+            }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role: " + rs.getString("role"));
+            }
+        }
+
+        return users;
+    }
+
 }
 

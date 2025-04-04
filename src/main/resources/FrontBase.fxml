@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.NavigateurController"
+            styleClass="root-pane" stylesheets="@style.css">
+
+    <!-- Top Navigation -->
+    <top>
+        <VBox styleClass="top-nav">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <ImageView fitHeight="30" fitWidth="100" preserveRatio="true">
+                    <image>
+                        <Image url="@logo.png"/>
+                    </image>
+                </ImageView>
+                <HBox spacing="10" HBox.hgrow="ALWAYS">
+                    <Button text="Home" styleClass="nav-button"/>
+                    <Button text="Doctors" styleClass="nav-button"/>
+                    <Button text="Services" styleClass="nav-button"/>
+                    <Button text="Avis" styleClass="nav-button"/>
+                    <Button text="Blogs" styleClass="nav-button"/>
+                    <Button text="Insights" styleClass="nav-button"/>
+                </HBox>
+
+                <Button text="Book Appointment" styleClass="book-appointment-btn"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Content - Review Form -->
+    <center>
+
+    </center>
+
+    <!-- Bottom Footer -->
+    <bottom>
+        <GridPane styleClass="footer">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="25"/>
+            </columnConstraints>
+
+            <Label text="About Us" styleClass="footer-title" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label text="Quick Links" styleClass="footer-title" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="Open Hours" styleClass="footer-title" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <Label text="Newsletter" styleClass="footer-title" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+        </GridPane>
+    </bottom>
+</BorderPane>

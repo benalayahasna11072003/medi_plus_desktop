@@ -18,13 +18,27 @@ public class ReponseService implements ICrud<Reponse> {
     private Connection cnx = JDBConnection.getInstance().getCnx();
     @Override
     public void insertOne(Reponse reponse) throws SQLException {
+        System.out.println(reponse);
         String req = "INSERT INTO `reponse`( `id_avis`, `professional_id`, `reponse`,`date_reponse`, `madeBy_id`) VALUES (?, ?, ?, ?, ?)";
+        System.out.println("______________________1");
         PreparedStatement ps = cnx.prepareStatement(req);
+        System.out.println("______________________2");
+
         ps.setInt(1, reponse.getAvis().getRef());
+        System.out.println("______________________3"+reponse.getProfessional().getId());
+
         ps.setInt(2, reponse.getProfessional().getId());
+        System.out.println("______________________4");
+
         ps.setString(3, reponse.getReponse());
+        System.out.println("______________________5");
+
         ps.setDate(4, reponse.getDateReponse());
+        System.out.println("______________________6");
+
         ps.setInt(5, reponse.getMadeBy().getId());
+        System.out.println("______________________7");
+
         ps.executeUpdate();
     }
 
@@ -85,6 +99,42 @@ public class ReponseService implements ICrud<Reponse> {
         }
 
         return reponses;
+    }
+
+
+    public List<Reponse> getResponsesByAvisId(int ref) throws SQLException{
+        List<Reponse> reponses = new ArrayList<>();
+        String query = "SELECT * FROM reponse where id_avis = "+ref;
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idUser = rs.getInt("madeBy_id");
+            User user = userService.findById(idUser);
+
+            int idAvis = rs.getInt("id_avis");
+            Avis avis = avisService.findByRef(idAvis);
+
+            int idProfessional = rs.getInt("professional_id");
+            User professional = userService.findById(idProfessional);
+
+            Reponse reponse = new Reponse();
+
+            reponse.setId(rs.getInt(("id")));
+            reponse.setAvis(avis);
+            reponse.setProfessional(professional);
+            reponse.setReponse(rs.getString("reponse"));
+            reponse.setDateReponse(rs.getDate("date_reponse"));
+            reponse.setMadeBy(user);
+
+            // Set other properties
+            reponses.add(reponse);
+        }
+
+        return reponses;
+
     }
 
 }
