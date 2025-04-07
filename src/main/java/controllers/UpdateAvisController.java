@@ -109,6 +109,7 @@ public class UpdateAvisController {
 
         } catch (SQLException e) {
             showAlert("Erreur SQL", e.getMessage());
+            System.out.println(e.getMessage());;
         }
     }
 

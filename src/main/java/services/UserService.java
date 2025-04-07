@@ -53,7 +53,7 @@ public class UserService implements ICrud<User> {
             user.setEmail(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-            user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+            user.setRole(Roles.valueOf(rs.getString("role").trim()));
 
 
             return user;
@@ -76,7 +76,7 @@ public class UserService implements ICrud<User> {
             user.setNameUser(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-            user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+            user.setRole(Roles.valueOf(rs.getString("role").trim()));
 
             return user;
         } else {

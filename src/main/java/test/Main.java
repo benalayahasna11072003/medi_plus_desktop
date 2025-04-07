@@ -16,7 +16,7 @@ public class Main {
         try {
             UserService userService = new UserService();
             User user = new User();
-            user.setRole(Roles.ROLE_PROFESSIONAL);
+            user.setRole(Roles.professionnel);
             user.setNameUser("Professionel");
             user.setPassword("123456");
             user.setEmail("pro@gmail.com");
