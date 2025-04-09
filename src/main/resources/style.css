@@ -1,0 +1,104 @@
+.root-pane {
+    -fx-background-color: white;
+}
+
+.top-nav {
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 3);
+}
+
+.logo {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+
+}
+
+
+.book-appointment-btn {
+    -fx-background-color: #3275f7;
+    -fx-text-fill: white;
+}
+
+.form-container {
+    -fx-padding: 20px;
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+    -fx-max-width: 1000px;   /* Maximum width */
+    -fx-max-height: 600px;  /* Maximum height */
+
+}
+.list-container {
+    -fx-padding: 20px;
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+    -fx-max-width: 1200px;   /* Maximum width */
+    -fx-max-height: 600px;  /* Maximum height */
+
+}
+
+.form-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.filter-btn{
+    -fx-background-color: #3275f7;
+    -fx-text-fill: white;
+
+}
+.form-label {
+    -fx-font-weight: bold;
+}
+
+.add-btn {
+    -fx-background-color: #3275f7;
+    -fx-text-fill: white;
+}
+
+.list-btn {
+    -fx-background-color: white;
+    -fx-border-color: #3275f7;
+}
+
+.footer {
+    -fx-background-color: #3275f7;
+    -fx-padding: 20px;
+}
+
+.footer-title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+
+.blue-header {
+    -fx-background-color: #007bff !important;
+    -fx-alignment: center;
+}
+
+.blue-header-title {
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 20px; /* Increase the font size */
+    -fx-font-weight: bold;
+}
+
+.sort-combo {
+    -fx-border-color: #999;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-color: white;
+}

@@ -12,7 +12,7 @@ public class Consultation {
     private User user;
     //one to many
     private User professionnel;
-    //one to one
+    //one to one5
     private RendezVous rendezVous;
     //many to one
     private List<Prescription> prescriptions = new ArrayList<>();

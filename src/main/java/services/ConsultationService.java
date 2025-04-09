@@ -19,15 +19,15 @@ public class ConsultationService implements ICrud<Consultation>{
     private Connection cnx = JDBConnection.getInstance().getCnx();
     @Override
     public void insertOne(Consultation consultation) throws SQLException {
-        //String req = "INSERT INTO `consultation`( `id_user`, `id_professionnel`, `rendez_vous_id`,`date_consultation`, `reason`) VALUES (?, ?, ?, ?, ?)";
-        String req = "INSERT INTO `consultation`( `id_user`, `id_professionnel`,`date_consultation`, `reason`) VALUES (?, ?, ?, ?)";
+        String req = "INSERT INTO `consultation`( `id_user`, `id_professionnel`, `rendez_vous_id`,`date_consultation`, `reason`) VALUES (?, ?, ?, ?, ?)";
+        //String req = "INSERT INTO `consultation`( `id_user`, `id_professionnel`,`date_consultation`, `reason`) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setInt(1, consultation.getUser().getId());
         ps.setInt(2, consultation.getProfessionnel().getId());
-        //ps.setInt(3, consultation.getRendezVous().getId()||null);
-        ps.setDate(3, java.sql.Date.valueOf(consultation.getDateConsultation()));
-        ps.setString(4, consultation.getReason());
+        ps.setInt(3, consultation.getRendezVous().getId());
+        ps.setDate(4, java.sql.Date.valueOf(consultation.getDateConsultation()));
+        ps.setString(5, consultation.getReason());
 
         ps.executeUpdate();
     }
@@ -50,8 +50,10 @@ public class ConsultationService implements ICrud<Consultation>{
 
     @Override
     public void deleteOne(Consultation consultation) throws SQLException {
-        String query = "DELETE FROM consultation WHERE id = ?";
         PreparedStatement ps;
+
+
+        String query = "DELETE FROM consultation WHERE id = ?";
         ps = cnx.prepareStatement(query);
         ps.setInt(1, consultation.getId());
         ps.executeUpdate();
@@ -59,6 +61,7 @@ public class ConsultationService implements ICrud<Consultation>{
 
     @Override
     public List<Consultation> selectAll() throws SQLException {
+
         List<Consultation> consultations = new ArrayList<>();
         String query = "SELECT * FROM consultation";
 

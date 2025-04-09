@@ -1,36 +1,26 @@
 package test;
 
-import entities.Avis;
-import services.AvisService;
-import utils.JDBConnection;
+import entities.*;
+import services.RendezVousService;
+import services.UserService;
+import utils.SUser;
 
 import java.sql.SQLException;
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        JDBConnection cnx = JDBConnection.getInstance();
+        UserService us = new UserService();
         try {
-            AvisService avisService = new AvisService();
-            List<Avis> aviss = avisService.selectAll();
-            System.out.println(aviss);
 
-            Avis avis = aviss.getFirst();
-
-            avisService.insertOne(avis);
-            System.out.println("_________________");
-            avis.setDateAvis(Date.valueOf("2000-01-01"));
-            avisService.updateOne(avis);
-            System.out.println("_________________");
-
-            aviss = avisService.selectAll();
-            System.out.println(aviss);
-
-            avisService.deleteOne(avis);
-
-            aviss = avisService.selectAll();
-            System.out.println(aviss);
+            RendezVous rdv = new RendezVous();
+            rdv.setStatusRdv("en attente");
+            rdv.setUser(us.findByEmail("user@gmail.com"));
+            rdv.setProfessional(SUser.getUser());
+            rdv.setDateRdv(LocalDate.now());
+            RendezVousService rds = new RendezVousService();
+            for(int i =0 ; i<10; i++){
+            rds.insertOne(rdv);}
         } catch (SQLException e) {
             System.err.println("Erreur: "+e.getMessage());
         }

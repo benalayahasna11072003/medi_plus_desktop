@@ -8,17 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements ICrud<User> {
     private Connection cnx = JDBConnection.getInstance().getCnx();
 
-
-    public UserService (){
-
-        User user = new User();
-        JDBConnection.getInstance();
-    }
     @Override
     public void insertOne(User user) throws SQLException {
         //the entitie name is 'User' in java but in mysql is 'id_user', be careful into other methodes!!!!!!
@@ -56,6 +51,7 @@ public class UserService implements ICrud<User> {
         if (rs.next()) {
             User user = new User();
             user.setId(rs.getInt("id"));
+            user.setEmail(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
@@ -76,16 +72,76 @@ public class UserService implements ICrud<User> {
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             User user = new User();
+
             user.setId(rs.getInt("id"));
+            user.setNameUser(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
-
 
             return user;
         } else {
             return null; // No user found with the given email
         }
 
+    }
+
+
+    public List<User> selectAllProfessional() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM id_user";
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            try {
+                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.ROLE_PROFESSIONAL)) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setNameUser(rs.getString("name_user"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+                    // Set other properties
+                    users.add(user);
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role: " + rs.getString("role"));
+            }
+        }
+
+        return users;
+    }
+
+    public List<User> selectAllPatient() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM id_user";
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            try {
+                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.ROLE_PATIENT)) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setNameUser(rs.getString("name_user"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+                    // Set other properties
+                    users.add(user);
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role: " + rs.getString("role"));
+            }
+        }
+
+        return users;
     }
 }

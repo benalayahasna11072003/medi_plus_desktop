@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ListView?>
+<BorderPane styleClass="root-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListPrescriptionController">
+
+    <!-- Top Navigation -->
+    <top>
+        <VBox styleClass="top-nav">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <ImageView fitHeight="30" fitWidth="100" preserveRatio="true">
+                    <image>
+                        <Image url="@logo.png" />
+                    </image>
+                </ImageView>
+                <HBox spacing="10" HBox.hgrow="ALWAYS">
+                    <Button styleClass="nav-button" text="Home" />
+                    <Button styleClass="nav-button" text="Doctors" />
+                    <Button styleClass="nav-button" text="Services" />
+
+                    <MenuButton styleClass="nav-button" text="Rendez-vous" textFill="#1a76d1">
+                        <items>
+                            <MenuItem onAction="#handleNewRendezVous" text="Nouveau Rendez-vous" />
+                            <MenuItem onAction="#handleListRendezVous" text="List Des Rendez-vous" />
+                        </items>
+                    </MenuButton>
+                    <MenuButton styleClass="nav-button" text="Consultations" >
+                        <items>
+                            <!--MenuItem onAction="#handleNewConsultation" text="Nouvelle Consultation" /-->
+                            <MenuItem onAction="#handleListConsultation" text="Liste Des Consultations" />
+                        </items>
+                    </MenuButton>
+                    <Button styleClass="nav-button" text="Avis" />
+                    <Button styleClass="nav-button" text="Blogs" />
+                    <Button styleClass="nav-button" text="Insights" />
+                </HBox>
+
+                <Button styleClass="book-appointment-btn" text="Book Appointment" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Content - Rendez-vous List -->
+    <center>
+        <VBox spacing="10" styleClass="list-container">
+            <!-- Blue Header -->
+            <HBox styleClass="blue-header">
+                <Label text="Liste des Prescriptions" styleClass="blue-header-title"/>
+            </HBox>
+
+            <!-- Filters and Search -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="Filtre" styleClass="filter-btn"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <DatePicker promptText="Sélectionnez une date" styleClass="date-picker"/>
+
+                <TextField promptText="Rechercher" styleClass="search-field"/>
+
+                <ComboBox promptText="Trier avec" styleClass="sort-combo">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Date"/>
+                            <String fx:value="Professional"/>
+                            <String fx:value="Statut"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <!-- Rendez-vous List -->
+            <ListView fx:id="prescriptionListView" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+    </center>
+
+    <!-- Bottom Footer -->
+    <bottom>
+        <GridPane styleClass="footer">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+            </columnConstraints>
+
+            <Label styleClass="footer-title" text="About Us" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label styleClass="footer-title" text="Quick Links" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label styleClass="footer-title" text="Open Hours" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <Label styleClass="footer-title" text="Newsletter" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </bottom>
+</BorderPane>

@@ -1,6 +1,8 @@
 package services;
 
+import entities.Consultation;
 import entities.Prescription;
+import entities.User;
 import utils.JDBConnection;
 
 import java.sql.Connection;
@@ -71,5 +73,36 @@ public class PrescriptionService implements ICrud<Prescription>{
             prescriptions.add(prescription);
         }
         return prescriptions;
+    }
+
+    public List<Prescription> getPrescriptionsByConsultationId(int id) throws SQLException{
+        List<Prescription> prescriptions = new ArrayList<>();
+        String query = "SELECT * FROM prescription where id_consultation = "+id;
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+
+
+            int idConsultation = rs.getInt("id_consultation");
+            Consultation consultation = consultationService.findById(idConsultation);
+
+
+            Prescription prescription = new Prescription();
+
+            prescription.setId(rs.getInt(("id")));
+            prescription.setConsultation(consultation);
+
+            prescription.setCreatedAt(rs.getDate("created_at").toLocalDate());
+            prescription.setDescription(rs.getString("description"));
+
+            // Set other properties
+            prescriptions.add(prescription);
+        }
+
+        return prescriptions;
+
     }
 }
