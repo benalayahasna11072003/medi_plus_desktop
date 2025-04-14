@@ -44,6 +44,9 @@ public class UpdateResponseController {
         if (updatedText.isEmpty()) {
             showAlert("Error", "Response cannot be empty!");
             return;
+        }else if (updatedText.length()<3){
+            showAlert("Error", "Response cannot be longer than 3 characters!");
+            return;
         }
 
         try {

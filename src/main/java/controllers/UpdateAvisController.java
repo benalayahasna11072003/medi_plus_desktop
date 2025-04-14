@@ -66,6 +66,9 @@ public class UpdateAvisController {
             if (commentaire.isEmpty()) {
                 showAlert("Erreur", "Le commentaire ne peut pas être vide!");
                 return;
+            }else if(avis.getCommentaire().length()<3){
+                showAlert("Error", "Comment must at least 3 characters.");
+                return;
             }
 
             int note;

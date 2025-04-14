@@ -21,9 +21,7 @@ public class AddResponseController extends NavigateurController {
     private Avis avis;
     private final ReponseService reponseService = new ReponseService();
 
-    public void setAvis(Avis avis) {
-        this.avis = avis;
-    }
+
     @FXML
     private Button backButton;
 
@@ -48,6 +46,16 @@ public class AddResponseController extends NavigateurController {
     @FXML
     private Button submitButton;
 
+
+    public void setAvis(Avis avis) {
+        this.avis = avis;
+        patientValue.setText(avis.getUser().getNameUser());
+        professionalValue.setText(avis.getProfessional().getNameUser());
+        dateValue.setText(avis.getDateAvis().toString());
+        commentValue.setText(avis.getCommentaire());
+        ratingValue.setText(String.valueOf(avis.getNote()));
+
+    }
     @FXML
     void handleBackButton(ActionEvent event) {
         closePopup();
@@ -58,6 +66,11 @@ public class AddResponseController extends NavigateurController {
         String replyText = responseTextArea.getText().trim();
         if (!replyText.isEmpty()) {
             Reponse reponse = new Reponse();
+            if(replyText.length()<3){
+                showAlert("Error", "Response must at least 3 characters.");
+                return;
+
+            }
             reponse.setReponse(replyText);
             reponse.setDateReponse(Date.valueOf(LocalDate.now()));
             reponse.setProfessional(avis.getProfessional());

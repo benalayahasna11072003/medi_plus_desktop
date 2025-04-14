@@ -39,6 +39,10 @@ public class AddAvisController extends NavigateurController {
 
             avis.setCommentaire(commentField.getText());
             avis.setDateAvis(java.sql.Date.valueOf(dateField.getValue()));
+            if(note >5 || note <1){
+                showAlert("Error", "Note must be between 1 and 5.");
+                return;
+            }
             avis.setNote(note);
             System.out.println(userSerivce.findByEmail(professionalCombo.getValue()));
             avis.setUser(SUser.getUser());
@@ -46,7 +50,11 @@ public class AddAvisController extends NavigateurController {
             if (avis.getCommentaire().equals("")){
                 showAlert("Error", "Comment must be not blank.");
                 return;
+            }else if(avis.getCommentaire().length()<3){
+                showAlert("Error", "Comment must at least 3 characters.");
+                return;
             }
+
             if (avis.getProfessional()==null){
                 showAlert("Error", "you must choose a professional.");
                 return;
