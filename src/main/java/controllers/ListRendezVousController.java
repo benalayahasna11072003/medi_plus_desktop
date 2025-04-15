@@ -165,7 +165,7 @@ public class ListRendezVousController extends NavigateurController {
             rendezVousListView.setItems(getRendezVousWithHeader());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            showAlert("Database Error", "Could not load rendez-vous data: " + e.getMessage());
+            showAlert("Erreur", "Les données du rendez-vous ne peuvent pas être charger: " + e.getMessage());
         }
     }
 
@@ -190,7 +190,7 @@ public class ListRendezVousController extends NavigateurController {
             rendezVousListView.setItems(getRendezVousWithHeader());
 
         } catch (IOException | SQLException e) {
-            showAlert("Error", "Failed to open consultation creation form: " + e.getMessage());
+            showAlert("Erreur", "Échec de l'ouverture du formulaire de création de consultation: " + e.getMessage());
         }
     }
 

@@ -46,12 +46,15 @@ public class EditConsultationController {
         try {
             // Validate input fields
             if (reasonField.getText().isEmpty()) {
-                showAlert("Error", "Veuillez saisir une raison pour la consultation");
+                showAlert("Erreur", "Veuillez saisir une raison pour la consultation");
+                return;
+            }else if (reasonField.getText().length()<4){
+                showAlert("Erreur", "La reason doit contenir au moins 4 caractères.");
                 return;
             }
 
             if (dateField.getValue() == null) {
-                showAlert("Error", "Veuillez sélectionner une date");
+                showAlert("Erreur", "Veuillez sélectionner une date");
                 return;
             }
 
@@ -125,7 +128,7 @@ public class EditConsultationController {
             // Create stage
             Stage popup = new Stage();
             popup.initModality(Modality.APPLICATION_MODAL);
-            popup.setTitle("Modifier l'consultation");
+            popup.setTitle("Modifier la consultation");
             popup.setResizable(false);
 
             // Set scene

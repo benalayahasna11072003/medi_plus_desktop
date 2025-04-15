@@ -68,8 +68,7 @@ public class ListPrescriptionController extends NavigateurController {
                             headerLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
                             rowBox.getChildren().add(headerLabel);
                         }
-                    }
-                    else {
+                    } else {
                         // Data row
                         Label dateLabel = createDynamicWidthLabel(prescription.getCreatedAt().toString(), false);
                         Label statutLabel = createDynamicWidthLabel(prescription.getConsultation().getProfessionnel().getNameUser(), false);
@@ -153,7 +152,8 @@ public class ListPrescriptionController extends NavigateurController {
                     showAlert("Error", "Failed to open consultation creation form: " + e.getMessage());
                 }*/
             }
-            private void openPrescriptionsDetailsPopup(Prescription prescription)  {
+
+            private void openPrescriptionsDetailsPopup(Prescription prescription) {
 
 
                 // Create and show the popup using the FXML controller
@@ -220,13 +220,9 @@ public class ListPrescriptionController extends NavigateurController {
             prescriptionListView.setItems(getPrescriptionWithHeader());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            showAlert("Database Error", "Could not load rendez-vous data: " + e.getMessage());
+            showAlert("Erreur", "Les données du rendez-vous ne peuvent pas être charger: " + e.getMessage());
         }
     }
-
-
-
-
 
 
     @FXML

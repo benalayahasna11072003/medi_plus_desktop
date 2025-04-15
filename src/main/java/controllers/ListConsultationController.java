@@ -81,7 +81,7 @@ public class ListConsultationController extends NavigateurController {
                             try {
                                 openAddPrescriptionPopup(consultation);
                             } catch (SQLException e) {
-                                showAlert("Error", "Failed to load review details: " + e.getMessage());
+                                showAlert("Erreur", "Failed to load review details: " + e.getMessage());
                             }
                         });
                         // Add Prescription button
@@ -90,7 +90,7 @@ public class ListConsultationController extends NavigateurController {
                             try {
                                 openConsultationDetailsPopup(consultation);
                             } catch (SQLException e) {
-                                showAlert("Error", "Failed to load review details: " + e.getMessage());
+                                showAlert("Erreur", "Failed to load review details: " + e.getMessage());
                             }
                         });
 
@@ -180,7 +180,7 @@ public class ListConsultationController extends NavigateurController {
             consultationsListView.setItems(getConsultationsWithHeader());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            showAlert("Error", "Failed to load consultations: " + e.getMessage());
+            showAlert("Erreur", "Failed to load consultations: " + e.getMessage());
         }
     }
 
@@ -215,7 +215,7 @@ public class ListConsultationController extends NavigateurController {
                 // Refresh the list after edit
                 consultationsListView.setItems(getConsultationsWithHeader());
             } catch (SQLException e) {
-                showAlert("Error", "Failed to refresh consultations: " + e.getMessage());
+                showAlert("Erreur", "Échec du rafraîchissement des consultations.: " + e.getMessage());
             }
         };
 
@@ -237,7 +237,7 @@ public class ListConsultationController extends NavigateurController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException e) {
-            showAlert("Error", "Failed to load prescription form: " + e.getMessage());
+            showAlert("Erreur", "Échec du chargement du formulaire de prescription: " + e.getMessage());
         }
     }
 
@@ -253,7 +253,7 @@ public class ListConsultationController extends NavigateurController {
                     // Refresh the list after edit
                     consultationsListView.setItems(getConsultationsWithHeader());
                 } catch (SQLException e) {
-                    showAlert("Error", "Failed to refresh consultations: " + e.getMessage());
+                    showAlert("Erreur", "Échec du rafraîchissement des consultations: " + e.getMessage());
                 }
             });
             /*controller.setRefreshCallback(() -> {
@@ -261,7 +261,7 @@ public class ListConsultationController extends NavigateurController {
                     // Refresh the list after edit
                     consultationsListView.setItems(getConsultationsWithHeader());
                 } catch (SQLException e) {
-                    showAlert("Error", "Failed to refresh consultations: " + e.getMessage());
+                    showAlert("Erreur", "Failed to refresh consultations: " + e.getMessage());
                 }
             });*/
 
@@ -271,7 +271,7 @@ public class ListConsultationController extends NavigateurController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException e) {
-            showAlert("Error", "Failed to load edit form: " + e.getMessage());
+            showAlert("Erreur", "Échec du chargement du formulaire de modification: " + e.getMessage());
         }
     }
 
@@ -287,9 +287,9 @@ public class ListConsultationController extends NavigateurController {
                 consultationsListView.refresh();
             }
 
-            showAlert("Success", "Consultation updated successfully");
+            showAlert("Succès", "Consultation mise à jour avec succès.");
         } catch (SQLException e) {
-            showAlert("Error", "Failed to update consultation: " + e.getMessage());
+            showAlert("Erreur", "Échec de la mise à jour de la consultation: " + e.getMessage());
         }
     }
 
@@ -325,7 +325,7 @@ public class ListConsultationController extends NavigateurController {
         try {
             consultationsListView.setItems(getConsultationsWithHeader());
         } catch (SQLException e) {
-            showAlert("Error", "Failed to refresh consultations: " + e.getMessage());
+            showAlert("Erreur", "Échec du rafraîchissement des consultations: " + e.getMessage());
         }
     }
 

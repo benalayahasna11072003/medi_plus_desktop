@@ -67,7 +67,7 @@ public class ShowPrescriptionController {
             // Create stage
             Stage popup = new Stage();
             popup.initModality(Modality.APPLICATION_MODAL);
-            popup.setTitle("Review Details");
+            popup.setTitle("Détails de l'avis");
             popup.setResizable(false);
 
             // Set scene
@@ -80,9 +80,9 @@ public class ShowPrescriptionController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Failed to load review details: " + e.getMessage());
+            alert.setContentText("Échec du chargement des détails de l'avis: " + e.getMessage());
             alert.showAndWait();
         }
 

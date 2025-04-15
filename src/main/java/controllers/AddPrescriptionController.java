@@ -46,7 +46,10 @@ public class AddPrescriptionController {
 
             // Validate input fields
             if (prescField.getText().isEmpty()) {
-                showAlert("Error", "Veuillez saisir une raison pour la consultation");
+                showAlert("Erreur", "Veuillez saisir une description pour la prescription");
+                return;
+            }else if (prescField.getText().length()<4){
+                showAlert("Erreur", "La description doit contenir au moins 4 caractères.");
                 return;
             }
             if (prescription != null) {
@@ -106,9 +109,9 @@ public class AddPrescriptionController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Failed to load review details: " + e.getMessage());
+            alert.setContentText("Échec du chargement des détails de l'avis: " + e.getMessage());
             alert.showAndWait();
         }
 

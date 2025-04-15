@@ -47,27 +47,31 @@ public class AddConsultationController extends NavigateurController {
             consultation.setUser(SUser.getUser());
             consultation.setProfessionnel(rendezVous.getProfessional());
             if (consultation.getReason().equals("")){
-                showAlert("Error", "reason must be not blank.");
+                showAlert("Erreur", "La reason ne doit pas être vide.");
+                return;
+            }
+            else if (reasonField.getText().length()<4){
+                showAlert("Erreur", "La reason doit contenir au moins 4 caractères.");
                 return;
             }
             if (consultation.getDateConsultation()==null){
-                showAlert("Error", "rdv date must be not blank");
+                showAlert("Erreur", "La date de rendez-vous ne doit pas être vide.");
                 return;
             }
             consultationService.insertOne(consultation); // Assuming you have an insert method in ConsultationService
-            showAlert("Success", "Review added successfully!");
+            showAlert("Succès", "Avis ajouté avec succès!");
             // Close the window
             Stage stage = (Stage) enregistrerButton.getScene().getWindow();
             stage.close();
             handleListConsultation(event);
         } catch (NumberFormatException e) {
-            showAlert("Error", "Note must be a valid number.");
+            showAlert("Erreur", "La note doit être un nombre valide.");
         } catch (SQLException e) {
-            showAlert("Error", "Failed to add review: " + e.getMessage());
+            showAlert("Erreur", "Échec de l'ajout de l'avis: " + e.getMessage());
 
         }
         catch (Exception e){
-            showAlert("Error", "Failed to add review: " + e.getMessage());
+            showAlert("Erreur", "Échec de l'ajout de l'avis: " + e.getMessage());
             System.out.println(e.getMessage());
         }
     }

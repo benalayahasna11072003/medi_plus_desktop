@@ -105,12 +105,13 @@ public class NavigateurController {
             try {
                 rendezVousListView.setItems(getRendezVousWithHeader());
             } catch (SQLException e) {
-                showAlert("Database Error", "Could not refresh rendez-vous data: " + e.getMessage());
+                showAlert("Erreur", "Les données du rendez-vous ne peuvent pas être charger: " + e.getMessage());
             }
         } catch (IOException e) {
-            showAlert("Error", "Failed to open new appointment form: " + e.getMessage());
+            showAlert("Erreur", "Échec de l'ouverture du formulaire de nouveau rendez-vous: " + e.getMessage());
         }
     }
+
 
     public ObservableList<Prescription> getPrescriptionWithHeader() throws SQLException {
         ObservableList<Prescription> prescriptionList = FXCollections.observableArrayList();

@@ -89,9 +89,9 @@ public class ConsultationDetailsController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Failed to load review details: " + e.getMessage());
+            alert.setContentText("Échec du chargement des détails de l'avis: " + e.getMessage());
             alert.showAndWait();
         }
 
