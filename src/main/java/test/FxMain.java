@@ -1,17 +1,12 @@
 package test;
 
-import entities.Avis;
-import entities.Roles;
-import entities.User;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import services.AvisService;
-import services.UserService;
 
-import java.sql.SQLException;
 
 public class FxMain extends Application {
 

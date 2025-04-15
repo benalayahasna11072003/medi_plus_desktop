@@ -4,6 +4,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entities.Avis;
 import entities.Reponse;
+import entities.Roles;
 import entities.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -114,8 +115,11 @@ public class ListAvisController extends NavigateurController {
                             }
                         });
 
+                        if(SUser.getUser().getRole().equals(Roles.professionnel))
+                        actionButtons.getChildren().addAll(actionBtn1);
+                        else
+                            actionButtons.getChildren().addAll(actionBtn1, actionBtn2);
 
-                        actionButtons.getChildren().addAll(actionBtn1, actionBtn2);
 
                         // Add to row
                         rowBox.getChildren().addAll(
@@ -204,7 +208,15 @@ public class ListAvisController extends NavigateurController {
                 // Reload the avis object
                 // Avis updatedAvis = avisService.findByRef(avis.getRef());
                 //this.avis = updatedAvis;
-                List<Avis> aviss = avisService.selectAll();
+                List<Avis> aviss;
+                if(SUser.getUser().getRole().equals(Roles.professionnel)){
+                    aviss = avisService.selectAll().stream()
+                            .filter(avis1 -> avis1.getProfessional().getId() == SUser.getUser().getId()).toList();
+                    System.out.println(aviss);
+
+                }else{
+                 aviss = avisService.selectAll();
+                }
                 reviewsListView.getItems().setAll(aviss);
                 // Reload the responses
                 // ReponseService reponseService = new ReponseService();
@@ -244,8 +256,19 @@ public class ListAvisController extends NavigateurController {
         Avis header = new Avis();
         header.setRef(-1); // Use -1 to detect header row
         aviss.add(header);
+        List<Avis> aviss1 ;
+        if(SUser.getUser().getRole().equals(Roles.professionnel)){
+            aviss1 = avisService.selectAll().stream()
+                    .filter(avis1 -> avis1.getProfessional().getId() == SUser.getUser().getId()).toList();
+            System.out.println(aviss1);
+            System.out.println("professional :" +SUser.getUser());
 
-        aviss.addAll(avisService.selectAll());
+
+        }else{
+            System.out.println("patient :"+SUser.getUser());
+            aviss1 = avisService.selectAll();
+        }
+        aviss.addAll(aviss1);
         return aviss;
     }
 

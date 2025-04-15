@@ -4,6 +4,7 @@ import entities.Avis;
 import entities.Roles;
 import entities.User;
 import utils.JDBConnection;
+import utils.SUser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,6 @@ import java.util.List;
 
 public class AvisService implements ICrud<Avis> {
 
-    private final int staticCurrentUserId = 22;
     private final UserService userService = new UserService();
     private Connection cnx = JDBConnection.getInstance().getCnx();
 
@@ -36,7 +36,7 @@ public class AvisService implements ICrud<Avis> {
         String req = "UPDATE `avis` SET `id_user`=?, `professional_id`=?, `note`=?, `commentaire`=?, `date_avis`=? WHERE `ref`=?";
 
         PreparedStatement ps = cnx.prepareStatement(req);
-        ps.setInt(1, staticCurrentUserId);
+        ps.setInt(1, SUser.getUser().getId());
         ps.setInt(2, avis.getProfessional().getId());
         ps.setInt(3, avis.getNote());
         ps.setString(4, avis.getCommentaire());
@@ -125,13 +125,13 @@ public class AvisService implements ICrud<Avis> {
 
         while (rs.next()) {
             try {
-            if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.ROLE_PROFESSIONAL)) {
+            if(Roles.valueOf(rs.getString("role").trim()).equals(Roles.professionnel)) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setNameUser(rs.getString("name_user"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+                user.setRole(Roles.valueOf(rs.getString("role").trim()));
 
                 // Set other properties
                 users.add(user);

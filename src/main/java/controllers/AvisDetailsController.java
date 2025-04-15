@@ -2,8 +2,10 @@ package controllers;
 
 import entities.Avis;
 import entities.Reponse;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import services.AvisService;
 import services.ReponseService;
 import utils.SUser;
 
@@ -19,8 +22,9 @@ import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class AvisDetailsController {
+public class AvisDetailsController extends NavigateurController {
 
+    public Button deleteButton;
     @FXML
     private Label patientValue;
     @FXML
@@ -35,7 +39,7 @@ public class AvisDetailsController {
     private Label commentValue;
     @FXML
     private ListView<Reponse> responsesListView;
-
+    private final AvisService avisService = new AvisService();
 
     private Avis avis;
     private List<Reponse> responses;
@@ -60,6 +64,31 @@ public class AvisDetailsController {
         // Configure responses ListView with a custom cell factory
         responsesListView.setCellFactory(listView -> new ResponseListCell());
         responsesListView.getItems().setAll(responses);
+    }
+
+    public void handleDeleteAvis(ActionEvent actionEvent) {
+        // Show confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Supprimer avis");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer cette avis?");
+        alert.setContentText("Cette action ne peut pas être annulée.");
+
+        alert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                try {
+                    // Delete from database
+                    avisService.deleteOne(avis);
+
+                    // Refresh the list
+                    //reviewsListView.setItems(getSampleReviewsWithHeader());
+
+                    showAlert("Succès", "La avis a été supprimée avec succès");
+                    handleListAvis(actionEvent);
+                } catch (SQLException e) {
+                    showAlert("Erreur", "Échec de la suppression: " + e.getMessage());
+                }
+            }
+        });
     }
 
     // Custom ListCell for responses
@@ -199,4 +228,6 @@ public class AvisDetailsController {
         }
 
     }
+
+
 }

@@ -36,12 +36,29 @@ public class AddAvisController extends NavigateurController {
         try {
             int note = Integer.parseInt(noteField.getText());
             Avis avis = new Avis();
+
             avis.setCommentaire(commentField.getText());
-            avis.setDateAvis(java.sql.Date.valueOf(LocalDate.now()));
+            avis.setDateAvis(java.sql.Date.valueOf(dateField.getValue()));
+            if(note >5 || note <1){
+                showAlert("Error", "Note must be between 1 and 5.");
+                return;
+            }
             avis.setNote(note);
             System.out.println(userSerivce.findByEmail(professionalCombo.getValue()));
             avis.setUser(SUser.getUser());
             avis.setProfessional(userSerivce.findByEmail(professionalCombo.getValue()));
+            if (avis.getCommentaire().equals("")){
+                showAlert("Error", "Comment must be not blank.");
+                return;
+            }else if(avis.getCommentaire().length()<3){
+                showAlert("Error", "Comment must at least 3 characters.");
+                return;
+            }
+
+            if (avis.getProfessional()==null){
+                showAlert("Error", "you must choose a professional.");
+                return;
+            }
             avisService.insertOne(avis); // Assuming you have an insert method in AvisService
             showAlert("Success", "Review added successfully!");
             handleListAvis(event);
@@ -49,6 +66,11 @@ public class AddAvisController extends NavigateurController {
             showAlert("Error", "Note must be a valid number.");
         } catch (SQLException e) {
             showAlert("Error", "Failed to add review: " + e.getMessage());
+
+        }
+        catch (Exception e){
+            showAlert("Error", "Failed to add review: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 

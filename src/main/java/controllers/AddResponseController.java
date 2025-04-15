@@ -66,6 +66,11 @@ public class AddResponseController extends NavigateurController {
         String replyText = responseTextArea.getText().trim();
         if (!replyText.isEmpty()) {
             Reponse reponse = new Reponse();
+            if(replyText.length()<3){
+                showAlert("Error", "Response must at least 3 characters.");
+                return;
+
+            }
             reponse.setReponse(replyText);
             reponse.setDateReponse(Date.valueOf(LocalDate.now()));
             reponse.setProfessional(avis.getProfessional());
