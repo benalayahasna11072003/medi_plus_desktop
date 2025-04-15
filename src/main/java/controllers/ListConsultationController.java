@@ -101,7 +101,7 @@ public class ListConsultationController extends NavigateurController {
                         // Update button
                         Button deleteBtn = createActionButton(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
                         deleteBtn.setOnAction(event -> handleDeleteConsultation(consultation));
-                        if (SUser.getUser().getRole().equals(Roles.ROLE_PROFESSIONAL)) {
+                        if (SUser.getUser().getRole().equals(Roles.professionnel)) {
                             actionButtons.getChildren().addAll(showBtn, prescriptionBtn);
                         } else {
                             actionButtons.getChildren().addAll(showBtn, editBtn, deleteBtn);
@@ -194,7 +194,7 @@ public class ListConsultationController extends NavigateurController {
 
         // Add actual consultations
         List<Consultation> consultationList = consultationService.selectAll();
-        if (SUser.getUser().getRole().equals(Roles.ROLE_PATIENT)) {
+        if (SUser.getUser().getRole().equals(Roles.patient)) {
             consultations.addAll(consultationList.stream().filter(consultation -> consultation.getUser().getId() == SUser.getUser().getId()).toList());
         } else {
             consultations.addAll(consultationList.stream().filter(consultation -> consultation.getProfessionnel().getId() == SUser.getUser().getId()).toList());

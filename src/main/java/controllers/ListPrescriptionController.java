@@ -62,7 +62,7 @@ public class ListPrescriptionController extends NavigateurController {
                         rowBox.setStyle("-fx-background-color: #212529;");
 
                         // Create header labels
-                        String[] headers = {"Date", "Statut", "Professional", "Actions"};
+                        String[] headers = {"Date", "Professional", "Patient", "Actions"};
                         for (String header : headers) {
                             Label headerLabel = createDynamicWidthLabel(header, true);
                             headerLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
@@ -83,7 +83,7 @@ public class ListPrescriptionController extends NavigateurController {
 
                         actionButtons.getChildren().add(viewBtn);
 
-                        if (SUser.getUser().getRole().equals(Roles.ROLE_PROFESSIONAL)) {
+                        if (SUser.getUser().getRole().equals(Roles.professionnel)) {
                             Button deletPrescriptionBtn = createActionButton(new FontAwesomeIconView(FontAwesomeIcon.TRASH));
                             deletPrescriptionBtn.setOnAction(event -> {
                                 handleDeletePrescription(prescription);

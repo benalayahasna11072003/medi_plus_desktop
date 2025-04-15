@@ -82,7 +82,7 @@ public class ListRendezVousController extends NavigateurController {
                         actionButtons.getChildren().add(viewBtn);
 
                         // If user is a professional and status is "accepted", add create consultation button
-                        if (SUser.getUser().getRole().equals(Roles.ROLE_PATIENT) &&
+                        if (SUser.getUser().getRole().equals(Roles.patient) &&
                                 "accepted".equalsIgnoreCase(rendezVous.getStatusRdv())) {
                             Button createConsultationBtn = createActionButton(new FontAwesomeIconView(FontAwesomeIcon.PLUS_CIRCLE));
                             createConsultationBtn.setOnAction(event -> {

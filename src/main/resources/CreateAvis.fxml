@@ -33,12 +33,28 @@
                     <Button styleClass="nav-button" text="Home" />
                     <Button styleClass="nav-button" text="Doctors" />
                     <Button styleClass="nav-button" text="Services" />
+
+                    <MenuButton styleClass="nav-button" text="Rendez-vous" >
+                        <items>
+                            <MenuItem onAction="#handleNewRendezVous" text="Nouveau Rendez-vous" />
+                            <MenuItem onAction="#handleListRendezVous" text="List Des Rendez-vous" />
+                        </items>
+                    </MenuButton>
+                    <MenuButton styleClass="nav-button" text="Consultations">
+                        <items>
+                            <!--MenuItem onAction="#handleNewConsultation" text="Nouvelle Consultation" /-->
+                            <MenuItem onAction="#handleListConsultation" text="Liste Des Consultations" />
+                        </items>
+                    </MenuButton>
+                    <Button styleClass="nav-button" onAction="#handleListPrescription" text="Prescriptions" />
+
                     <MenuButton styleClass="nav-button" text="Avis" textFill="#1a76d1">
                         <items>
-                            <MenuItem onAction="#handleNewAvis" text="Nouveau Avis" />
+                            <MenuItem onAction="#handleNewAvis" text="Nouveau Avis"  />
                             <MenuItem onAction="#handleListAvis" text="List Des Avis" />
                         </items>
                     </MenuButton>
+
                     <Button styleClass="nav-button" text="Blogs" />
                     <Button styleClass="nav-button" text="Insights" />
                 </HBox>

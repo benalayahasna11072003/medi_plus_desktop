@@ -47,7 +47,15 @@
                             <MenuItem onAction="#handleListConsultation" text="Liste Des Consultations" />
                         </items>
                     </MenuButton>
-                    <Button styleClass="nav-button" text="Avis" />
+                    <Button styleClass="nav-button" onAction="#handleListPrescription" text="Prescriptions" />
+
+                    <MenuButton styleClass="nav-button" text="Avis">
+                        <items>
+                            <MenuItem onAction="#handleNewAvis" text="Nouveau Avis"  />
+                            <MenuItem onAction="#handleListAvis" text="List Des Avis" />
+                        </items>
+                    </MenuButton>
+
                     <Button styleClass="nav-button" text="Blogs" />
                     <Button styleClass="nav-button" text="Insights" />
                 </HBox>
