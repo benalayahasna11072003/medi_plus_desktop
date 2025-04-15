@@ -9,7 +9,8 @@ import java.sql.*;
 public class SUser {
 
     private static final String nameUser = "test user";
-    private static final String email = "pro@gmail.com";
+    private static final String email = "pro@gmail.com";//professional
+    //private static final String email = "pa@gmail.com";//patient
     private static final String password = "123123";
     private static final Roles role = Roles.professionnel;
     private static final int id = 0;
