@@ -68,7 +68,7 @@ public class ListAvisController extends NavigateurController {
                         rowBox.setStyle("-fx-background-color: #212529;");
 
                         // Create header labels
-                        String[] headers = {"Patient", "Professional", "Note", "Date", "Comment", "Actions"};
+                        String[] headers = {"Patient", "Professional", "Note", "Date", "Commentaire", "Actions"};
                         for (String header : headers) {
                             Label headerLabel = createDynamicWidthLabel(header, true);
                             headerLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
@@ -92,7 +92,7 @@ public class ListAvisController extends NavigateurController {
                                 try {
                                     openReplyPopup(avis);
                                 } catch (SQLException e) {
-                                    showAlert("Error", "Failed to load review details: " + e.getMessage());
+                                    showAlert("Erreur", "Échec du chargement des détails de l'avis: " + e.getMessage());
                                 }
                             });
                         } else {
@@ -102,7 +102,7 @@ public class ListAvisController extends NavigateurController {
                                 // try {
                                 handleUpdateAvis(avis);
                            /*     } catch (SQLException e) {
-                                    showAlert("Error", "Failed to load review details: " + e.getMessage());
+                                    showAlert("Erreur", "Failed to load review details: " + e.getMessage());
                                 }*/
                             });
                         }
@@ -111,7 +111,7 @@ public class ListAvisController extends NavigateurController {
                             try {
                                 openAvisDetailsPopup(avis);
                             } catch (SQLException e) {
-                                showAlert("Error", "Failed to load review details: " + e.getMessage());
+                                showAlert("Erreur", "Échec du chargement des détails de l'avis: " + e.getMessage());
                             }
                         });
 
@@ -245,7 +245,7 @@ public class ListAvisController extends NavigateurController {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (IOException e) {
-            showAlert("Error", "Failed to load reply popup: " + e.getMessage());
+            showAlert("Erreur", "Failed to load reply popup: " + e.getMessage());
         }
     }
 

@@ -36,7 +36,7 @@ public class UpdateResponseDialogController {
         BorderPane root = new BorderPane();
 
         // Header
-        Label headerLabel = new Label("Update Your Response");
+        Label headerLabel = new Label("Modifier votre réponse");
         headerLabel.setAlignment(Pos.CENTER);
         headerLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: white; -fx-padding: 10px; -fx-font-weight: bold;");
         headerLabel.setPrefHeight(40);
@@ -55,7 +55,7 @@ public class UpdateResponseDialogController {
         VBox contentBox = new VBox(15);
         contentBox.setPadding(new Insets(20));
 
-        Label responseLabel = new Label("Your Response");
+        Label responseLabel = new Label("Votre réponse");
         TextField responseField = new TextField(response.getReponse());
         responseField.setPrefWidth(Double.MAX_VALUE);
 
@@ -63,7 +63,7 @@ public class UpdateResponseDialogController {
         root.setCenter(contentBox);
 
         // Buttons
-        Button saveButton = new Button("Save Response");
+        Button saveButton = new Button("Sauvegarder la réponse");
         saveButton.setStyle("-fx-background-color: #28a745; -fx-text-fill: white;");
         saveButton.setPrefWidth(150);
         saveButton.setOnAction(e -> {
@@ -72,7 +72,7 @@ public class UpdateResponseDialogController {
             dialog.close();
         });
 
-        Button cancelButton = new Button("Back to Reviews");
+        Button cancelButton = new Button("Annuler");
         cancelButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
         cancelButton.setPrefWidth(150);
         cancelButton.setOnAction(e -> dialog.close());
