@@ -40,7 +40,7 @@ public class AddAvisController extends NavigateurController {
             avis.setCommentaire(commentField.getText());
             avis.setDateAvis(java.sql.Date.valueOf(dateField.getValue()));
             if(note >5 || note <1){
-                showAlert("Error", "Note must be between 1 and 5.");
+                showAlert("Erreur", "La note doit être entre 1 et 5.");
                 return;
             }
             avis.setNote(note);
@@ -48,28 +48,28 @@ public class AddAvisController extends NavigateurController {
             avis.setUser(SUser.getUser());
             avis.setProfessional(userSerivce.findByEmail(professionalCombo.getValue()));
             if (avis.getCommentaire().equals("")){
-                showAlert("Error", "Comment must be not blank.");
+                showAlert("Erreur", "Le commentaire ne doit pas être vide.");
                 return;
             }else if(avis.getCommentaire().length()<3){
-                showAlert("Error", "Comment must at least 3 characters.");
+                showAlert("Erreur", "Le commentaire doit contenir au moins 3 caractères.");
                 return;
             }
 
             if (avis.getProfessional()==null){
-                showAlert("Error", "you must choose a professional.");
+                showAlert("Erreur", "Vous devez choisir un professionnel.");
                 return;
             }
             avisService.insertOne(avis); // Assuming you have an insert method in AvisService
-            showAlert("Success", "Review added successfully!");
+            showAlert("Succès", "Avis ajouté avec succès !");
             handleListAvis(event);
         } catch (NumberFormatException e) {
-            showAlert("Error", "Note must be a valid number.");
+            showAlert("Erreur", "La note doit être un nombre valide.");
         } catch (SQLException e) {
-            showAlert("Error", "Failed to add review: " + e.getMessage());
+            showAlert("Erreur", "Échec de l'ajout de l'avis: " + e.getMessage());
 
         }
         catch (Exception e){
-            showAlert("Error", "Failed to add review: " + e.getMessage());
+            showAlert("Erreur", "Échec de l'ajout de l'avis: " + e.getMessage());
             System.out.println(e.getMessage());
         }
     }

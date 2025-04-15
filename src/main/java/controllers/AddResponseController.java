@@ -67,7 +67,7 @@ public class AddResponseController extends NavigateurController {
         if (!replyText.isEmpty()) {
             Reponse reponse = new Reponse();
             if(replyText.length()<3){
-                showAlert("Error", "Response must at least 3 characters.");
+                showAlert("Erreur", "La réponse doit contenir au moins 3 caractères.");
                 return;
 
             }
@@ -80,7 +80,7 @@ public class AddResponseController extends NavigateurController {
                 reponseService.insertOne(reponse);
                 closePopup();
             } catch (SQLException e){
-                showAlert("SQL Erreur", e.getMessage());
+                showAlert("Erreur SQL:", e.getMessage());
             }
 
         }

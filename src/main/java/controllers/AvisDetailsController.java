@@ -112,7 +112,7 @@ public class AvisDetailsController extends NavigateurController {
                 responseText.setWrapText(true);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                Label responseDate = new Label("Responded on: " + response.getDateReponse());//.format(formatter));
+                Label responseDate = new Label("Répondu le: " + response.getDateReponse());//.format(formatter));
                 responseDate.setStyle("-fx-text-fill: gray; -fx-font-size: 12px;");
                 container.getChildren().addAll(responderName, responseText, responseDate);
                 // Check if the current user is the owner of this response
@@ -121,7 +121,7 @@ public class AvisDetailsController extends NavigateurController {
                     HBox buttonBox = new HBox(10);
                     buttonBox.setPadding(new Insets(5, 0, 0, 0));
 
-                    Button updateButton = new Button("Update");
+                    Button updateButton = new Button("Modifier");
                     updateButton.getStyleClass().add("btn-primary");
                     updateButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
                     updateButton.setGraphic(new Label(""));
@@ -129,7 +129,7 @@ public class AvisDetailsController extends NavigateurController {
                     updateButton.setPrefWidth(100);
                     updateButton.setOnAction(e -> handleUpdateResponse(response));
 
-                    Button deleteButton = new Button("Delete");
+                    Button deleteButton = new Button("Supprimer");
                     deleteButton.getStyleClass().add("btn-danger");
                     deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white;");
                     deleteButton.setGraphic(new Label(""));
@@ -155,7 +155,7 @@ public class AvisDetailsController extends NavigateurController {
                 responses = reponseService.getResponsesByAvisId(avis.getRef());
                 responsesListView.getItems().setAll(responses);
             } catch (SQLException e) {
-                showAlert("SQL Error", e.getMessage());
+                showAlert("Erreur SQL", e.getMessage());
             }
         });
     }
@@ -166,9 +166,9 @@ public class AvisDetailsController extends NavigateurController {
     private void handleDeleteResponse(Reponse response) {
         // Show confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Response");
-        alert.setHeaderText("Are you sure you want to delete this response?");
-        alert.setContentText("This action cannot be undone.");
+        alert.setTitle("Suppression de reponse");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer cette réponse ?");
+        alert.setContentText("Cette action est irréversible.");
 
         alert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
@@ -221,9 +221,9 @@ public class AvisDetailsController extends NavigateurController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Failed to load review details: " + e.getMessage());
+            alert.setContentText("Échec du chargement des détails de l'avis: " + e.getMessage());
             alert.showAndWait();
         }
 

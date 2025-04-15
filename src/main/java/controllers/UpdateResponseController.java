@@ -42,10 +42,10 @@ public class UpdateResponseController {
         String updatedText = responseTextArea.getText().trim();
 
         if (updatedText.isEmpty()) {
-            showAlert("Error", "Response cannot be empty!");
+            showAlert("Erreur", "La réponse ne peut pas être vide !");
             return;
         }else if (updatedText.length()<3){
-            showAlert("Error", "Response cannot be longer than 3 characters!");
+            showAlert("Erreur", "La réponse ne peut pas dépasser 3 caractères !");
             return;
         }
 
@@ -67,7 +67,7 @@ public class UpdateResponseController {
             stage.close();
 
         } catch (SQLException e) {
-            showAlert("SQL Error", e.getMessage());
+            showAlert("SQL Erreur", e.getMessage());
         }
     }
 
@@ -113,7 +113,7 @@ public class UpdateResponseController {
         } catch (IOException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Failed to load update response dialog: " + e.getMessage());
             alert.showAndWait();
