@@ -21,9 +21,7 @@ public class AddResponseController extends NavigateurController {
     private Avis avis;
     private final ReponseService reponseService = new ReponseService();
 
-    public void setAvis(Avis avis) {
-        this.avis = avis;
-    }
+
     @FXML
     private Button backButton;
 
@@ -48,6 +46,16 @@ public class AddResponseController extends NavigateurController {
     @FXML
     private Button submitButton;
 
+
+    public void setAvis(Avis avis) {
+        this.avis = avis;
+        patientValue.setText(avis.getUser().getNameUser());
+        professionalValue.setText(avis.getProfessional().getNameUser());
+        dateValue.setText(avis.getDateAvis().toString());
+        commentValue.setText(avis.getCommentaire());
+        ratingValue.setText(String.valueOf(avis.getNote()));
+
+    }
     @FXML
     void handleBackButton(ActionEvent event) {
         closePopup();
