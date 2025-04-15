@@ -10,7 +10,14 @@ public class Reponse {
     private User professional;
     private User madeBy;
 
+
+
+
     // Getters and Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

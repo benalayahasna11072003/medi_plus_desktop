@@ -1,0 +1,100 @@
+package controllers;
+
+import entities.Avis;
+import entities.User;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import services.AvisService;
+import services.UserService;
+import utils.SUser;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.stream.Collectors;
+
+public class AddAvisController extends NavigateurController {
+
+    private final AvisService avisService = new AvisService();
+    private final UserService userSerivce = new UserService();
+
+
+    @FXML
+    private TextArea commentField;
+
+    @FXML
+    private DatePicker dateField;
+
+    @FXML
+    private TextField noteField;
+
+    @FXML
+    private ComboBox<String> professionalCombo;
+
+    @FXML
+    void insertAvis(ActionEvent event) {
+        try {
+            int note = Integer.parseInt(noteField.getText());
+            Avis avis = new Avis();
+
+            avis.setCommentaire(commentField.getText());
+            avis.setDateAvis(java.sql.Date.valueOf(dateField.getValue()));
+            if(note >5 || note <1){
+                showAlert("Erreur", "La note doit être entre 1 et 5.");
+                return;
+            }
+            avis.setNote(note);
+            System.out.println(userSerivce.findByEmail(professionalCombo.getValue()));
+            avis.setUser(SUser.getUser());
+            avis.setProfessional(userSerivce.findByEmail(professionalCombo.getValue()));
+            if (avis.getCommentaire().equals("")){
+                showAlert("Erreur", "Le commentaire ne doit pas être vide.");
+                return;
+            }else if(avis.getCommentaire().length()<3){
+                showAlert("Erreur", "Le commentaire doit contenir au moins 3 caractères.");
+                return;
+            }
+
+            if (avis.getProfessional()==null){
+                showAlert("Erreur", "Vous devez choisir un professionnel.");
+                return;
+            }
+            avisService.insertOne(avis); // Assuming you have an insert method in AvisService
+            showAlert("Succès", "Avis ajouté avec succès !");
+            handleListAvis(event);
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "La note doit être un nombre valide.");
+        } catch (SQLException e) {
+            showAlert("Erreur", "Échec de l'ajout de l'avis: " + e.getMessage());
+
+        }
+        catch (Exception e){
+            showAlert("Erreur", "Échec de l'ajout de l'avis: " + e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        // Initialize the ComboBox with some sample professionals
+        try {
+            professionalCombo.getItems().addAll(
+                    avisService.selectAllProfessional().stream()
+                            .map(User::getEmail) // Extract email from each User object
+                            .collect(Collectors.toList()) // Collect into a list
+            );
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

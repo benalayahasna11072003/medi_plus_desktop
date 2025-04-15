@@ -5,6 +5,7 @@ import entities.RendezVous;
 import entities.Roles;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class NavigateurController {
 
     private final RendezVousService rendezVousService = new RendezVousService();
     private final PrescriptionService prescriptionService = new PrescriptionService();
+
 
     @FXML
     void handleListAvis(ActionEvent event) {
@@ -69,6 +71,7 @@ public class NavigateurController {
         }
 
     }
+
 
     @FXML
     void handleListConsultation(ActionEvent event) {
@@ -124,7 +127,7 @@ public class NavigateurController {
         List<Prescription> prescriptionsItems;
 
         // Filter appointments based on user role
-        if (SUser.getUser().getRole().equals(Roles.ROLE_PROFESSIONAL)) {
+        if (SUser.getUser().getRole().equals(Roles.professionnel)) {
             // If professional, only show appointments for this professional
             prescriptionsItems = prescriptionService.selectAll().stream()
                     .filter(prescription -> prescription.getConsultation().getProfessionnel().getId() == SUser.getUser().getId())
@@ -151,7 +154,7 @@ public class NavigateurController {
         List<RendezVous> rendezVousItems;
 
         // Filter appointments based on user role
-        if (SUser.getUser().getRole().equals(Roles.ROLE_PROFESSIONAL)) {
+        if (SUser.getUser().getRole().equals(Roles.professionnel)) {
             // If professional, only show appointments for this professional
             rendezVousItems = rendezVousService.selectAll().stream()
                     .filter(rdv -> rdv.getProfessional().getId() == SUser.getUser().getId())
@@ -218,3 +221,4 @@ public class NavigateurController {
     }
 
 }
+

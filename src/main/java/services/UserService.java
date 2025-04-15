@@ -54,7 +54,7 @@ public class UserService implements ICrud<User> {
             user.setEmail(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-            user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+            user.setRole(Roles.valueOf(rs.getString("role").trim()));
 
 
             return user;
@@ -77,7 +77,8 @@ public class UserService implements ICrud<User> {
             user.setNameUser(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-            user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+            user.setRole(Roles.valueOf(rs.getString("role").trim()));
 
             return user;
         } else {
@@ -97,7 +98,7 @@ public class UserService implements ICrud<User> {
 
         while (rs.next()) {
             try {
-                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.ROLE_PROFESSIONAL)) {
+                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.professionnel)) {
                     User user = new User();
                     user.setId(rs.getInt("id"));
                     user.setNameUser(rs.getString("name_user"));
@@ -126,7 +127,7 @@ public class UserService implements ICrud<User> {
 
         while (rs.next()) {
             try {
-                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.ROLE_PATIENT)) {
+                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.patient)) {
                     User user = new User();
                     user.setId(rs.getInt("id"));
                     user.setNameUser(rs.getString("name_user"));
