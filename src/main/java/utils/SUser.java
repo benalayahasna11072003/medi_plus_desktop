@@ -37,7 +37,6 @@ public class SUser {
 
     private static void setUser() {
         try {
-            System.out.println("______________________________");
             String query = "SELECT * FROM id_user WHERE email = ?";
 
             Connection cnx = JDBConnection.getInstance().getCnx();
