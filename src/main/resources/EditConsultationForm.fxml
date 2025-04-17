@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EditConsultationController"
+            prefWidth="450" prefHeight="350">
+    <top>
+        <HBox style="-fx-background-color: #007bff; -fx-padding: 15px;" alignment="CENTER">
+            <Label text="Modifier votre avis" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="20" right="25" bottom="20" left="25"/>
+            </padding>
+
+            <Label text="Votre reason" />
+            <TextField fx:id="reasonField" />
+
+
+
+            <Label text="Date" />
+            <DatePicker fx:id="dateField" prefWidth="400" />
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 15px;">
+            <Button fx:id="annulerButton" text="Annuler" onAction="#handleCancel"
+                    style="-fx-background-color: #007bff; -fx-text-fill: white;" prefWidth="150">
+                <graphic>
+                    <Label text="" />
+                </graphic>
+            </Button>
+            <Button fx:id="enregistrerButton" text="Enregistrer" onAction="#handleSave"
+                    style="-fx-background-color: #28a745; -fx-text-fill: white;" prefWidth="150">
+                <graphic>
+                    <Label text="" />
+                </graphic>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

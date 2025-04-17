@@ -19,7 +19,7 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <?import javafx.scene.control.ListView?>
-<BorderPane styleClass="root-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListAvisController">
+<BorderPane styleClass="root-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListPrescriptionController">
 
     <!-- Top Navigation -->
     <top>
@@ -41,15 +41,15 @@
                             <MenuItem onAction="#handleListRendezVous" text="List Des Rendez-vous" />
                         </items>
                     </MenuButton>
-                    <MenuButton styleClass="nav-button" text="Consultations" >
+                    <MenuButton styleClass="nav-button" text="Consultations">
                         <items>
                             <!--MenuItem onAction="#handleNewConsultation" text="Nouvelle Consultation" /-->
                             <MenuItem onAction="#handleListConsultation" text="Liste Des Consultations" />
                         </items>
                     </MenuButton>
-                    <Button styleClass="nav-button" onAction="#handleListPrescription" text="Prescriptions" />
+                    <Button styleClass="nav-button" onAction="#handleListPrescription" textFill="#1a76d1" text="Prescriptions" />
 
-                    <MenuButton styleClass="nav-button" text="Avis" textFill="#1a76d1">
+                    <MenuButton styleClass="nav-button" text="Avis" >
                         <items>
                             <MenuItem onAction="#handleNewAvis" text="Nouveau Avis"  />
                             <MenuItem onAction="#handleListAvis" text="List Des Avis" />
@@ -65,12 +65,13 @@
         </VBox>
     </top>
 
-    <!-- Center Content - Review Form -->
+
+    <!-- Center Content - Rendez-vous List -->
     <center>
         <VBox spacing="10" styleClass="list-container">
             <!-- Blue Header -->
             <HBox styleClass="blue-header">
-                <Label text="Liste des Avis" styleClass="blue-header-title"/>
+                <Label text="Liste des Prescriptions" styleClass="blue-header-title"/>
             </HBox>
 
             <!-- Filters and Search -->
@@ -79,7 +80,7 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <!--DatePicker promptText="Sélectionnez une date" styleClass="date-picker"/-->
+                <DatePicker promptText="Sélectionnez une date" styleClass="date-picker"/>
 
                 <TextField promptText="Rechercher" styleClass="search-field"/>
 
@@ -87,17 +88,15 @@
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Date"/>
-                            <String fx:value="Nom de patient"/>
-                            <String fx:value="Note"/>
-                            <String fx:value="Commentaire"/>
-
+                            <String fx:value="Professional"/>
+                            <String fx:value="Statut"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
             </HBox>
 
-            <!-- Reviews List -->
-            <ListView fx:id="reviewsListView" VBox.vgrow="ALWAYS"/>
+            <!-- Rendez-vous List -->
+            <ListView fx:id="prescriptionListView" VBox.vgrow="ALWAYS"/>
         </VBox>
 
     </center>

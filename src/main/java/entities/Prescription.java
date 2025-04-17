@@ -6,6 +6,8 @@ public class Prescription {
 
     private int id;
     private String description;
+
+    //one to many
     private Consultation consultation;
     private LocalDate createdAt;
 

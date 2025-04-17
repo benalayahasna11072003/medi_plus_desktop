@@ -18,10 +18,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane styleClass="root-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddAvisController">
+<BorderPane styleClass="root-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddConsultationController">
 
     <!-- Top Navigation -->
-    <top>
+    <!--top>
         <VBox styleClass="top-nav">
             <HBox alignment="CENTER_LEFT" spacing="10">
                 <ImageView fitHeight="30" fitWidth="100" preserveRatio="true">
@@ -33,28 +33,15 @@
                     <Button styleClass="nav-button" text="Home" />
                     <Button styleClass="nav-button" text="Doctors" />
                     <Button styleClass="nav-button" text="Services" />
-
-                    <MenuButton styleClass="nav-button" text="Rendez-vous" >
-                        <items>
-                            <MenuItem onAction="#handleNewRendezVous" text="Nouveau Rendez-vous" />
-                            <MenuItem onAction="#handleListRendezVous" text="List Des Rendez-vous" />
-                        </items>
-                    </MenuButton>
-                    <MenuButton styleClass="nav-button" text="Consultations">
-                        <items>
+                    <MenuButton styleClass="nav-button" text="Consultations" textFill="#1a76d1">
+                        <items-->
                             <!--MenuItem onAction="#handleNewConsultation" text="Nouvelle Consultation" /-->
-                            <MenuItem onAction="#handleListConsultation" text="Liste Des Consultations" />
+                            <!--MenuItem onAction="#handleListConsultation" text="Liste Des Consultations" /-->
+                            <!--MenuItem text="Nouvelle Consultation" />
+                            <MenuItem text="Liste Des Consultations" />
                         </items>
                     </MenuButton>
-                    <Button styleClass="nav-button" onAction="#handleListPrescription" text="Prescriptions" />
-
-                    <MenuButton styleClass="nav-button" text="Avis" textFill="#1a76d1">
-                        <items>
-                            <MenuItem onAction="#handleNewAvis" text="Nouveau Avis"  />
-                            <MenuItem onAction="#handleListAvis" text="List Des Avis" />
-                        </items>
-                    </MenuButton>
-
+                    <Button styleClass="nav-button" text="Avis" />
                     <Button styleClass="nav-button" text="Blogs" />
                     <Button styleClass="nav-button" text="Insights" />
                 </HBox>
@@ -62,40 +49,38 @@
                 <Button styleClass="book-appointment-btn" text="Book Appointment" />
             </HBox>
         </VBox>
-    </top>
+    </top-->
 
-    <!-- Center Content - Review Form -->
+    <!-- Center Content - Consultation Form -->
     <center>
         <VBox spacing="10" styleClass="form-container">
             <HBox alignment="CENTER">
-                <Label styleClass="form-title" text="Formulaire d'Avis" />
+                <Label styleClass="form-title" text="Formulaire de Consultation" />
             </HBox>
-            <VBox spacing="5">
-                <Label styleClass="form-label" text="Note *" />
-                <TextField fx:id="noteField" promptText="Note" />
-            </VBox>
 
             <VBox spacing="5">
-                <Label styleClass="form-label" text="Commentaire *" />
-                <TextArea fx:id="commentField" promptText="Commentaire" />
-            </VBox>
-
-            <VBox spacing="5">
-                <Label styleClass="form-label" text="Date de l'avis *" />
+                <Label styleClass="form-label" text="Date de la consultation *" />
                 <DatePicker fx:id="dateField" promptText="mm/dd/yyyy" />
             </VBox>
 
+
+
             <VBox spacing="5">
-                <ComboBox fx:id="professionalCombo" promptText="Sélectionner un professionnel" />
+                <Label styleClass="form-label" text="Raison de la consultation *" />
+                <TextField fx:id="reasonField" promptText="Raison de la consultation" />
             </VBox>
 
+
+
+
+
             <HBox spacing="10">
-                <Button onAction="#insertAvis" styleClass="add-btn" text="Ajouter" />
-                <Button styleClass="list-btn" text="Liste Des Avis" />
+                <Button fx:id="enregistrerButton" onAction="#insertConsultation" styleClass="add-btn" text="Enregistrer" />
+                <Button onAction="#handleListConsultation" styleClass="list-btn" text="Liste Des Consultations" />
             </HBox>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
         </VBox>
     </center>
 
@@ -113,9 +98,9 @@
             <Label styleClass="footer-title" text="Quick Links" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <Label styleClass="footer-title" text="Open Hours" GridPane.columnIndex="2" GridPane.rowIndex="0" />
             <Label styleClass="footer-title" text="Newsletter" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
         </GridPane>
     </bottom>
 </BorderPane>

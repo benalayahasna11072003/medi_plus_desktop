@@ -18,12 +18,14 @@ public class FxMain extends Application {
     public void start(Stage stage) throws Exception {
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListAvis.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListConsultationView.fxml"));
+
 
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        stage.setTitle("List Avis");
+        stage.setTitle("List Consultation");
+
         stage.setScene(scene);
 
         stage.show();

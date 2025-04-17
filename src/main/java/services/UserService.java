@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements ICrud<User> {
@@ -76,12 +77,73 @@ public class UserService implements ICrud<User> {
             user.setNameUser(rs.getString("name_user"));
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
-            user.setRole(Roles.valueOf(rs.getString("role").trim()));
+            System.out.println("____________________________________");
+            user.setRole(Roles.valueOf(rs.getString("role")));//.trim()));
+            System.out.println("____________________________________");
 
             return user;
         } else {
             return null; // No user found with the given email
         }
 
+    }
+
+
+    public List<User> selectAllProfessional() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM id_user";
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            try {
+                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.professionnel)) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setNameUser(rs.getString("name_user"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+                    // Set other properties
+                    users.add(user);
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role: " + rs.getString("role"));
+            }
+        }
+
+        return users;
+    }
+
+    public List<User> selectAllPatient() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM id_user";
+        PreparedStatement ps;
+
+        ps = cnx.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            try {
+                if(Roles.valueOf(rs.getString("role").trim().toUpperCase()).equals(Roles.patient)) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setNameUser(rs.getString("name_user"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole(Roles.valueOf(rs.getString("role").trim().toUpperCase()));
+
+                    // Set other properties
+                    users.add(user);
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid role: " + rs.getString("role"));
+            }
+        }
+
+        return users;
     }
 }
