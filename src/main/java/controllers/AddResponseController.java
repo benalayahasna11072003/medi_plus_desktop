@@ -51,36 +51,7 @@ public class AddResponseController extends NavigateurController {
     @FXML
     private Button submitButton;
 
-    private final Set<String> badWords = new HashSet<>(Arrays.asList(
-            // Mild insults
-            "idiot", "stupid", "dumb", "moron", "loser", "fool", "clown", "jerk",
-            "weirdo", "creep", "lame", "brat", "trash", "pathetic", "sucker", "dope",
 
-            // Negative adjectives
-            "ugly", "gross", "disgusting", "worthless", "useless", "annoying", "lazy",
-            "boring", "nonsense", "ridiculous", "terrible", "horrible", "awful", "toxic",
-
-            // Dismissive or aggressive phrases
-            "shut up", "get lost", "go away", "leave me alone", "screw off", "no one cares",
-            "who asked", "what a joke", "you wish", "you're nothing", "no one likes you",
-
-            // Condescending slang
-            "cringe", "simp", "snowflake", "boomer", "karen", "neckbeard", "tryhard",
-            "basic", "poser", "beta", "wannabe", "crybaby", "manchild",
-
-            // Light online trolling words
-            "rekt", "owned", "pwned", "git gud", "ez", "trash talk", "camping", "ragequit",
-            "feed", "noob", "scrub", "griefer", "toxic player", "sweaty", "bot",
-
-            // Tone-based or manipulative
-            "fake", "liar", "cheater", "backstabber", "two-faced", "jealous", "clingy",
-            "attention seeker", "overreacting", "overdramatic", "control freak", "delusional",
-            "manipulative", "selfish", "vain", "insecure", "obsessed", "immature",
-
-            // Emotionally aggressive or sarcastic
-            "hate you", "i wish you would disappear", "you're a problem", "you're hopeless",
-            "nobody wants you", "you ruin everything", "why are you like this", "what's wrong with you"
-    ));
 
     public void setAvis(Avis avis) {
         this.avis = avis;
@@ -128,6 +99,9 @@ public class AddResponseController extends NavigateurController {
             }
 
         }
+        else{
+            showAlert("Erreur", "La réponse ne peut pas être vide !");
+        }
     }
 
 
@@ -143,23 +117,6 @@ public class AddResponseController extends NavigateurController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-    private boolean containsBadWords(String text) {
-        String textLower = text.toLowerCase();
 
-        for (String badWord : badWords) {
-            String pattern = "(?i).*\\b" + Pattern.quote(badWord.toLowerCase()) + "\\b.*";
-            if (textLower.matches(pattern) || textLower.contains(badWord)) {
-                return true;
-            }
-        }
-        for (String badWord : BadWords.badWords) {
-            String pattern = "(?i).*\\b" + Pattern.quote(badWord.toLowerCase()) + "\\b.*";
-            if (textLower.matches(pattern) || textLower.contains(badWord)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
 }

@@ -15,7 +15,7 @@ import services.ReponseService;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class UpdateResponseController {
+public class UpdateResponseController extends NavigateurController{
 
     @FXML
     private TextArea responseTextArea;
@@ -48,7 +48,11 @@ public class UpdateResponseController {
             showAlert("Erreur", "La réponse ne peut pas dépasser 3 caractères !");
             return;
         }
-
+        // Check for bad words
+        if (containsBadWords(updatedText)) {
+            showAlert("Contenu inapproprié", "Votre réponse contient des mots inappropriés. Veuillez modifier votre texte.");
+            return;
+        }
         try {
             // Update the response object
             response.setReponse(updatedText);

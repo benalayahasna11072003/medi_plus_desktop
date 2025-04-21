@@ -147,6 +147,7 @@ public class AvisDetailsController extends NavigateurController {
     }
     // Handle update response action
     private void handleUpdateResponse(Reponse response) {
+
         // Show update dialog and refresh list upon successful update
         UpdateResponseController.showUpdateResponseDialog(response, () -> {
             // Refresh the responses from database

@@ -59,6 +59,10 @@ public class AddAvisController extends NavigateurController {
                 showAlert("Erreur", "Vous devez choisir un professionnel.");
                 return;
             }
+            if (containsBadWords(avis.getCommentaire())) {
+                showAlert("Contenu inapproprié", "Votre commentaire contient des mots inappropriés. Veuillez modifier votre texte.");
+                return;
+            }
             avisService.insertOne(avis); // Assuming you have an insert method in AvisService
             showAlert("Succès", "Avis ajouté avec succès !");
             handleListAvis(event);
