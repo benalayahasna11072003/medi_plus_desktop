@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.sql.Date;
 
-public class UpdateAvisController {
+public class UpdateAvisController extends NavigateurController {
 
     @FXML
     private TextField commentaireField;
@@ -70,7 +70,10 @@ public class UpdateAvisController {
                 showAlert("Erreur", "Le commentaire doit contenir au moins 3 caractères.");
                 return;
             }
-
+            if (containsBadWords(commentaireField.getText())) {
+                showAlert("Contenu inapproprié", "Votre commentaire contient des mots inappropriés. Veuillez modifier votre texte.");
+                return;
+            }
             int note;
             try {
                 note = Integer.parseInt(noteField.getText().trim());
