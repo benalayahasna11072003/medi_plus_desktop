@@ -19,6 +19,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import services.PrescriptionService;
 import services.UserService;
+import utils.PrescriptionWords;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,19 +48,11 @@ public class AddPrescriptionController implements Initializable {
 
 
 
-
+    private List<String> prescriptionItems = PrescriptionWords.prescriptionItems;
 ///////////
 
     // List of prescription items (modify as needed)
-    private final List<String> prescriptionItems = Arrays.asList(
-            "Amoxicillin", "Azithromycin", "Atorvastatin", "Aspirine",
-            "Bupropion", "Benazepril", "Budesonide",
-            "Ciprofloxacin", "Cephalexin", "Citalopram",
-            "Doliprane", "Dafalgan", "Dolirhume",
-            "Efferalgan", "Eludril", "Esomeprazole",
-            "Forlax", "Fluconazole", "Furosemide",
-            "Gaviscon", "Glucophage", "Glucotrol"
-    );
+
 
     // Popup for autocomplete suggestions
     private Popup autoCompletePopup;
