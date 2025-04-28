@@ -10,7 +10,7 @@
             prefWidth="450" prefHeight="350">
     <top>
         <HBox style="-fx-background-color: #007bff; -fx-padding: 15px;" alignment="CENTER">
-            <Label text="Modifier votre avis" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Label text="Modifier votre consultation" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
         </HBox>
     </top>
     <center>

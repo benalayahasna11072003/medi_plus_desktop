@@ -17,8 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.PrescriptionService;
-import services.RendezVousService;
+import services.gestionConsultation.PrescriptionService;
+import services.gestionConsultation.RendezVousService;
 import utils.SUser;
 
 import java.io.IOException;
@@ -76,7 +76,7 @@ public class NavigateurController {
     @FXML
     void handleListConsultation(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListConsultationView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionConcultation/ListConsultationView.fxml"));
             Parent root = loader.load();
 
             Stage stage;
@@ -173,7 +173,7 @@ public class NavigateurController {
     private void handleListPrescription(ActionEvent event) {
         // Already on this page, maybe refresh the list
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListPrescriptions.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionConcultation/ListPrescriptions.fxml"));
             Parent root = loader.load();
 
             Stage stage;
@@ -193,7 +193,7 @@ public class NavigateurController {
     private void handleListRendezVous(ActionEvent event) {
         // Already on this page, maybe refresh the list
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListRdv.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionConcultation/ListRdv.fxml"));
             Parent root = loader.load();
 
             Stage stage;
@@ -221,4 +221,3 @@ public class NavigateurController {
     }
 
 }
-

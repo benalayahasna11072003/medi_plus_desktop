@@ -17,15 +17,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import services.PrescriptionService;
-import services.UserService;
+import services.gestionConsultation.MailPrescriptionService;
+import services.gestionConsultation.PrescriptionService;
+import services.gestionConsultation.StyledPDF;
 import utils.PrescriptionWords;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -45,9 +46,6 @@ public class AddPrescriptionController implements Initializable {
     private Runnable onUpdateSuccessCallback;
 
 
-
-
-
     private List<String> prescriptionItems = PrescriptionWords.prescriptionItems;
 ///////////
 
@@ -62,6 +60,10 @@ public class AddPrescriptionController implements Initializable {
     // Track the word currently being typed and its position
     private int currentWordStart = 0;
     private int currentWordEnd = 0;
+
+
+    private final StyledPDF styledPDF = new StyledPDF();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupAutoComplete();
@@ -140,7 +142,7 @@ public class AddPrescriptionController implements Initializable {
                 } else {
                     autoCompletePopup.hide();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.err.println("Error in autocomplete: " + e.getMessage());
                 autoCompletePopup.hide();
             }
@@ -195,6 +197,7 @@ public class AddPrescriptionController implements Initializable {
             }
         });
     }
+
     /**
      * Insert the selected item into the text field, replacing only the current word
      */
@@ -228,14 +231,6 @@ public class AddPrescriptionController implements Initializable {
 ////////////
 
 
-
-
-
-
-
-
-
-
     @FXML
     void handleListConsultation(ActionEvent event) {
 
@@ -251,7 +246,7 @@ public class AddPrescriptionController implements Initializable {
             if (prescField.getText().isEmpty()) {
                 showAlert("Erreur", "Veuillez saisir une description pour la prescription");
                 return;
-            }else if (prescField.getText().length()<4){
+            } else if (prescField.getText().length() < 4) {
                 showAlert("Erreur", "La description doit contenir au moins 4 caractères.");
                 return;
             }
@@ -266,7 +261,45 @@ public class AddPrescriptionController implements Initializable {
                     prescription1.setDescription(prescField.getText());
                     prescription1.setCreatedAt(LocalDate.now());
 
-                    prescriptionService.insertOne(prescription1);
+                    String patientName = prescription1.getConsultation().getUser().getNameUser();
+                    String fileName = patientName + " Prescription " + LocalDate.now();
+                    String doctorName = prescription1.getConsultation().getProfessionnel().getNameUser();
+                    String dt = prescription1.getCreatedAt().toString();
+                    String presDetails = prescription1.getDescription();
+                    String filePath = "";
+                    for (int i = 0; i < 3; i++) {
+                        try {
+                            filePath = styledPDF.generatePrescriptionPDF(fileName, doctorName, patientName, dt, presDetails);// save file path
+
+                            prescriptionService.insertOne(prescription1);
+
+
+                            break;
+                        } catch (IOException e) {
+                            if (i < 2) {
+                                showAlert("Erreur de génération du PDF", "Une erreur est survenue lors de la génération du fichier. Nouvelle tentative...");
+                            } else {
+                                showAlert("Échec de la génération du PDF", "Toutes les tentatives ont échoué. Veuillez réessayer plus tard.");
+                            }
+                        }
+                    }
+                    if (!filePath.isEmpty()) {
+                        String patientEmail = prescription1.getConsultation().getUser().getEmail();
+
+                        for (int i = 0; i < 3; i++) {
+                            try {
+                                MailPrescriptionService.sendPrescriptionEmail(patientEmail, patientName, doctorName, presDetails, filePath);
+                                break; // succès : on quitte la boucle
+                            } catch (MessagingException | IOException e) {
+                                if (i < 2) {
+                                    showAlert("Erreur d'envoi de l'email", "Une erreur est survenue lors de l'envoi du mail. Nouvelle tentative...");
+                                } else {
+                                    showAlert("Échec de l'envoi de l'email", "Toutes les tentatives ont échoué. Veuillez réessayer plus tard.");
+                                }
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }
             }
             // Show success message
@@ -286,10 +319,10 @@ public class AddPrescriptionController implements Initializable {
 
     }
 
-    public static void showConsultationDetails(Consultation consultation, Runnable onUpdateSuccessCallback) throws SQLException{
+    public static void showConsultationDetails(Consultation consultation, Runnable onUpdateSuccessCallback) throws SQLException {
         try {
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(AddPrescriptionController.class.getResource("/AddPrescription.fxml"));
+            FXMLLoader loader = new FXMLLoader(AddPrescriptionController.class.getResource("/gestionConcultation/AddPrescription.fxml"));
             BorderPane root = loader.load();
 
             // Get controller
@@ -320,12 +353,12 @@ public class AddPrescriptionController implements Initializable {
 
     }
 
-    private void setData(Consultation consultation, Runnable onUpdateSuccessCallback) throws SQLException{
+    private void setData(Consultation consultation, Runnable onUpdateSuccessCallback) throws SQLException {
 
         this.onUpdateSuccessCallback = onUpdateSuccessCallback;
         this.consultation = consultation;
-        Prescription prescription1 =prescriptionService.getPrescriptionsByConsultationId(consultation.getId()).stream().findFirst().orElse(null);
-        if (prescription1!=null) {
+        Prescription prescription1 = prescriptionService.getPrescriptionsByConsultationId(consultation.getId()).stream().findFirst().orElse(null);
+        if (prescription1 != null) {
             prescription = prescription1;
             prescField.setText(prescription.getDescription());
         }
@@ -340,7 +373,6 @@ public class AddPrescriptionController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
 
 
 }

@@ -1,25 +1,19 @@
 package controllers;
 
 import entities.Consultation;
-import entities.Consultation;
-import entities.Reponse;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import utils.SUser;
-
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 public class ConsultationDetailsController {
 
+    public Label consultationDetailsLabel;
     @FXML
     private Label patientValue;
     @FXML
@@ -36,7 +30,8 @@ public class ConsultationDetailsController {
 
     public void setData(Consultation consultation) {
         this.consultation = consultation;
-
+        String patientName = consultation.getUser().getNameUser();
+        consultationDetailsLabel.setText("Détails de la consultation de "+patientName+" :");
         populateData();
     }
 
@@ -54,19 +49,12 @@ public class ConsultationDetailsController {
 
 
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 
     // Static method to open the popup
     public static void showConsultationDetails(Consultation consultation) {
         try {
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(ConsultationDetailsController.class.getResource("/ConsultationDetailsPopup.fxml"));
+            FXMLLoader loader = new FXMLLoader(ConsultationDetailsController.class.getResource("/gestionConcultation/ConsultationDetailsPopup.fxml"));
             BorderPane root = loader.load();
 
             // Get controller
@@ -96,4 +84,13 @@ public class ConsultationDetailsController {
         }
 
     }
+
+    /*private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }*/
+
 }

@@ -5,27 +5,15 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entities.*;
 import entities.Prescription;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import services.ConsultationService;
-import services.PrescriptionService;
-import services.PrescriptionService;
+import services.gestionConsultation.PrescriptionService;
 import utils.SUser;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.List;
 
 public class ListPrescriptionController extends NavigateurController {
 

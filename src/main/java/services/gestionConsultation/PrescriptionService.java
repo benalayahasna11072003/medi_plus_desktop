@@ -1,8 +1,8 @@
-package services;
+package services.gestionConsultation;
 
 import entities.Consultation;
 import entities.Prescription;
-import entities.User;
+import services.ICrud;
 import utils.JDBConnection;
 
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrescriptionService implements ICrud<Prescription>{
+public class PrescriptionService implements ICrud<Prescription> {
     ConsultationService consultationService = new ConsultationService();
     private Connection cnx = JDBConnection.getInstance().getCnx();
     @Override

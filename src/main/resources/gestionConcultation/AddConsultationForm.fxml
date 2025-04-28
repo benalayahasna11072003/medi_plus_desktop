@@ -2,15 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
+
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane styleClass="root-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddConsultationController">
+<BorderPane styleClass="root-pane" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddConsultationController">
 
     <!-- Top Navigation -->
     <!--top>
@@ -60,7 +56,8 @@
 
             <VBox spacing="5">
                 <Label styleClass="form-label" text="Date de la consultation *" />
-                <DatePicker fx:id="dateField" promptText="mm/dd/yyyy" />
+                <VBox fx:id="calendarContainer" layoutX="150.0" layoutY="70.0" prefHeight="450.0" prefWidth="600.0" />
+
             </VBox>
 
 

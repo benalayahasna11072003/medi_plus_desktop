@@ -1,19 +1,11 @@
 package test;
 
-import entities.*;
-import services.RendezVousService;
 import services.UserService;
-import utils.SUser;
 
-import entities.Avis;
 import entities.Roles;
 import entities.User;
-import services.AvisService;
-import services.UserService;
-import utils.JDBConnection;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {

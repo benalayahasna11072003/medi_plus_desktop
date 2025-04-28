@@ -1,0 +1,19 @@
+.calendar-component .month-view .date-cell:selected {
+    -fx-background-color: #b3d9ff;
+    -fx-border-color: #0066cc;
+    -fx-border-width: 2px;
+}
+
+.calendar-component .date-cell.unavailable {
+    -fx-background-color: #ffcccc;
+}
+
+.calendar-component .today {
+    -fx-background-color: #e6f2ff;
+}
+
+/* Hide unnecessary elements */
+.calendar-component .toolbar {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
