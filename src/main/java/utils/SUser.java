@@ -9,9 +9,9 @@ import java.sql.*;
 public class SUser {
 
     private static final String nameUser = "test user";
-    private static final String email = "user@gmail.com";//professional
+    //private static final String email = "user@gmail.com";//professional
 
-    //private static final String email = "pa@gmail.com";//patient
+    private static final String email = "user@gmail.com";//patient
     private static final String password = "123123";
 
     private static final Roles role = Roles.professionnel;
@@ -38,7 +38,6 @@ public class SUser {
 
     private static void setUser() {
         try {
-            System.out.println("______________________________");
             String query = "SELECT * FROM id_user WHERE email = ?";
 
             Connection cnx = JDBConnection.getInstance().getCnx();

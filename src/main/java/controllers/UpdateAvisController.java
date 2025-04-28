@@ -6,29 +6,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.AvisService;
+import org.controlsfx.control.Rating;
+import services.gestionAvis.AvisService;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.sql.Date;
 
 public class UpdateAvisController extends NavigateurController {
 
     @FXML
-    private TextField commentaireField;
+    private TextArea commentaireField;
 
     @FXML
-    private TextField noteField;
+    private Rating starRating;
 
-    //@FXML
-    //private DatePicker datePicker;
+    @FXML
+    private Label ratingValueLabel;
 
     @FXML
     private Button annulerButton;
@@ -45,17 +43,20 @@ public class UpdateAvisController extends NavigateurController {
 
         // Set current values in the fields
         commentaireField.setText(avis.getCommentaire());
-        noteField.setText(String.valueOf(avis.getNote()));
+        starRating.setRating(avis.getNote());
+        ratingValueLabel.setText(avis.getNote() + "/5");
+    }
 
-        // Convert Date to LocalDate for DatePicker
-       /* if (avis.getDateAvis() != null) {
-            LocalDate localDate = avis.getDateAvis().toInstant()
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate();
-            datePicker.setValue(localDate);
-        } else {
-            datePicker.setValue(LocalDate.now());
-        }*/
+    @FXML
+    public void initialize() {
+        // Configure the Rating control
+        starRating.setMax(5);
+        starRating.setPartialRating(false); // Only allow whole stars
+
+        // Update rating value label when star rating changes
+        starRating.ratingProperty().addListener((obs, oldVal, newVal) -> {
+            ratingValueLabel.setText(newVal.intValue() + "/5");
+        });
     }
 
     @FXML
@@ -66,39 +67,25 @@ public class UpdateAvisController extends NavigateurController {
             if (commentaire.isEmpty()) {
                 showAlert("Erreur", "Le commentaire ne peut pas être vide!");
                 return;
-            }else if(avis.getCommentaire().length()<3){
+            } else if (commentaire.length() < 3) {
                 showAlert("Erreur", "Le commentaire doit contenir au moins 3 caractères.");
                 return;
             }
-            if (containsBadWords(commentaireField.getText())) {
+
+            if (containsBadWords(commentaire)) {
                 showAlert("Contenu inapproprié", "Votre commentaire contient des mots inappropriés. Veuillez modifier votre texte.");
                 return;
             }
-            int note;
-            try {
-                note = Integer.parseInt(noteField.getText().trim());
-                if (note < 0 || note > 5) {
-                    showAlert("Erreur", "La note doit être entre 0 et 5!");
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                showAlert("Erreur", "La note doit être un nombre!");
+
+            int note = (int) starRating.getRating();
+            if (note < 1) {
+                showAlert("Erreur", "Veuillez sélectionner une note (entre 1 et 5 étoiles).");
                 return;
             }
-
-           /* LocalDate selectedDate = datePicker.getValue();
-            if (selectedDate == null) {
-                showAlert("Erreur", "Veuillez sélectionner une date!");
-                return;
-            }*/
 
             // Update the avis object
             avis.setCommentaire(commentaire);
             avis.setNote(note);
-
-            // Convert LocalDate to Date
-         //   Date date = java.sql.Date.valueOf(LocalDate.now());
-         //   avis.setDateAvis(date);
 
             // Save to database
             AvisService avisService = new AvisService();
@@ -115,7 +102,7 @@ public class UpdateAvisController extends NavigateurController {
 
         } catch (SQLException e) {
             showAlert("Erreur SQL", e.getMessage());
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 
@@ -138,7 +125,7 @@ public class UpdateAvisController extends NavigateurController {
     public static void showUpdateAvisDialog(Avis avis, Runnable onUpdateSuccessCallback) {
         try {
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(UpdateAvisController.class.getResource("/UpdateAvis.fxml"));
+            FXMLLoader loader = new FXMLLoader(UpdateAvisController.class.getResource("/gestionAvis/UpdateAvis.fxml"));
             BorderPane root = loader.load();
 
             // Get controller

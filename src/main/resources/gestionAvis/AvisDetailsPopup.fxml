@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import org.controlsfx.control.Rating?>
+
+<BorderPane prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AvisDetailsController">
+
+    <!-- Header -->
+    <top>
+        <HBox style="-fx-background-color: #1A76D1;" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+                <Label style="-fx-font-size: 18px; -fx-text-fill: white; -fx-font-weight: bold;" text="Détails de l'Avis :" />
+            </children>
+        </HBox>
+    </top>
+
+    <!-- Content Area -->
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <children>
+
+                <!-- Details Grid -->
+                <GridPane hgap="50" vgap="15">
+                    <children>
+                        <!-- Patient -->
+                        <Label style="-fx-font-weight: bold;" text="Patient:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="patientValue" text="test1" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                        <!-- Professional -->
+                        <Label style="-fx-font-weight: bold;" text="Professionnel:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="professionalValue" text="test1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <!-- Rating -->
+                        <Label style="-fx-font-weight: bold;" text="Note:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Rating fx:id="starRating" max="5" rating="0" />
+                            <Label fx:id="ratingValue" text="0/5" />
+                        </HBox>
+
+                        <!-- Date -->
+                        <Label style="-fx-font-weight: bold;" text="Date:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="dateValue" text="2025-03-04" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+
+                <!-- Comment -->
+                <Label style="-fx-font-weight: bold;" text="Commentaire:" />
+                <Label fx:id="commentValue" text="azera" wrapText="true" />
+
+                <!-- Translate, ComboBox, and Delete Buttons -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <children>
+                        <MenuButton fx:id="translateMenuButton"
+                                    text="Traduire"
+                                    styleClass="translate-button">
+                            <items>
+                                <MenuItem fx:id="frMenuItem" onAction="#handleTranslate" text="fr" />
+                                <MenuItem fx:id="enMenuItem" onAction="#handleTranslate" text="en" />
+                                <MenuItem fx:id="itMenuItem" onAction="#handleTranslate" text="it" />
+                                <MenuItem fx:id="deMenuItem" onAction="#handleTranslate" text="de" />
+                            </items>
+                        </MenuButton>
+
+                        <Region HBox.hgrow="ALWAYS" /> <!-- This pushes the delete button to the right -->
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteAvis" styleClass="delete-button" text="Supprimer" />
+                    </children>
+                </HBox>
+
+                <!-- Responses -->
+                <Label style="-fx-font-weight: bold;" text="Réponses:" />
+                <ListView fx:id="responsesListView" prefHeight="200.0" style="-fx-background-color: white; -fx-border-color: #E0E0E0;" />
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

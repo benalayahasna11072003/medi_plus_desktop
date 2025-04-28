@@ -72,7 +72,7 @@ public class NavigateurController {
     @FXML
     public void handleListAvis(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListAvis.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionAvis/ListAvis.fxml"));
             Parent root = loader.load();
 
             Stage stage;
@@ -89,12 +89,51 @@ public class NavigateurController {
         }
     }
 
+    @FXML
+    public void handleStatsAvis(ActionEvent event) {
+        // Check if the current user is not a professional
+        if (!SUser.getUser().getEmail().equals("pro@gmail.com")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Access Denied");
+            alert.setHeaderText(null);
+            alert.setContentText("This section is only for professionals.");
+            alert.showAndWait();
+            return; // Do not continue loading StatsAvis.fxml
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionAvis/StatsAvis.fxml"));
+            Parent root = loader.load();
+
+            // Create a new popup stage
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Statistics");
+            popupStage.initModality(Modality.APPLICATION_MODAL); // This makes it a modal dialog
+            popupStage.setResizable(false);
+            popupStage.setScene(new Scene(root));
+            popupStage.show();
+
+            // Close the current window
+            /*Stage currentStage;
+            if (event.getSource() instanceof MenuItem) {
+                currentStage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
+            } else {
+                currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            }
+
+            currentStage.close();*/
+
+        } catch (IOException e) {
+            System.err.println("Failed to load StatsAvis.fxml: " + e.getMessage());
+        }
+    }
+
+
 
     @FXML
     public void handleNewAvis(ActionEvent event) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CreateAvis.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionAvis/CreateAvis.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();

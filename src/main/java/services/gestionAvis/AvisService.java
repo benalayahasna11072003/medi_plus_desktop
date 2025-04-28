@@ -1,15 +1,14 @@
-package services;
+package services.gestionAvis;
 
 import entities.Avis;
 import entities.Roles;
 import entities.User;
+import services.ICrud;
+import services.UserService;
 import utils.JDBConnection;
 import utils.SUser;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +143,68 @@ public class AvisService implements ICrud<Avis> {
 
         return users;
     }
+
+
+    /*public List<Avis> recuperer() throws SQLException {
+        String sql = "SELECT * FROM avis";
+        Statement statement = cnx.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        List<Avis> avisList = new ArrayList<>();
+
+        while (rs.next()) {
+            Avis a = new Avis();
+            //a.setRef(rs.getInt("ref"));
+            a.setNote(rs.getInt("note"));
+            //a.setCommentaire(rs.getString("commentaire"));
+            //a.setDateAvis(rs.getDate("date_avis"));
+
+            // Assuming user and professional are stored as user IDs (int)
+            int userId = rs.getInt("id_user");
+            int professionalId = rs.getInt("professional_id");
+
+            User user = userService.findById(userId);
+            User professional = userService.findById(professionalId);
+
+            a.setUser(user);
+            a.setProfessional(professional);
+
+            avisList.add(a);
+        }
+        System.out.println(avisList);
+        return avisList;
+    }*/
+    public List<Avis> recupererPourProfessional(int professionalId) throws SQLException {
+        String sql = "SELECT * FROM avis WHERE professional_id = ?";
+        PreparedStatement statement = cnx.prepareStatement(sql);
+        statement.setInt(1, professionalId);
+        ResultSet rs = statement.executeQuery();
+        List<Avis> avisList = new ArrayList<>();
+
+        while (rs.next()) {
+            Avis a = new Avis();
+            a.setNote(rs.getInt("note"));
+
+            int userId = rs.getInt("id_user");
+            int profId = rs.getInt("professional_id");
+
+            User user = userService.findById(userId);
+            User professional = userService.findById(profId);
+
+            a.setUser(user);
+            a.setProfessional(professional);
+
+            avisList.add(a);
+        }
+        System.out.println(avisList);
+        return avisList;
+    }
+
+
+
+
+
+
+
 
 }
 

@@ -10,7 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.ReponseService;
+import services.gestionAvis.ReponseService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -94,7 +94,7 @@ public class UpdateResponseController extends NavigateurController{
     public static void showUpdateResponseDialog(Reponse response, Runnable onUpdateSuccessCallback) {
         try {
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(UpdateResponseController.class.getResource("/UpdateResponse.fxml"));
+            FXMLLoader loader = new FXMLLoader(UpdateResponseController.class.getResource("/gestionAvis/UpdateResponse.fxml"));
             BorderPane root = loader.load();
 
             // Get controller

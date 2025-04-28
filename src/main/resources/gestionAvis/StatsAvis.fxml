@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controllers.StatsAvisController"
+           prefHeight="250.0" prefWidth="600.0">
+
+    <!-- Foreground Content -->
+    <VBox spacing="10" alignment="TOP_LEFT" maxWidth="600">
+        <!-- Top message about verified ratings -->
+        <Label text="Ratings and reviews are verified and are from our registered users"
+               wrapText="true"
+               maxWidth="600"
+               style="-fx-font-size: 14px; -fx-text-fill: #666666;"/>
+
+        <HBox spacing="30" alignment="CENTER_LEFT">
+            <!-- Left side: Rating number and stars -->
+            <VBox spacing="5" alignment="CENTER_LEFT" minWidth="150">
+                <Label fx:id="averageRatingLabel"
+                       style="-fx-font-size: 72px; -fx-font-weight: bold;"/>
+                <HBox fx:id="starIconsBox" spacing="2"/>
+                <Label fx:id="totalRatingsLabel"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <!-- Right side: Rating bars -->
+            <VBox fx:id="starsBox" spacing="10" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</StackPane>

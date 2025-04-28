@@ -2,7 +2,6 @@ package controllers;
 
 import entities.Avis;
 import entities.Reponse;
-import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,17 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import services.ReponseService;
-import utils.BadWords;
+import org.controlsfx.control.Rating;
+import services.gestionAvis.ReponseService;
 import utils.SUser;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class AddResponseController extends NavigateurController {
     private Avis avis;
@@ -44,13 +39,19 @@ public class AddResponseController extends NavigateurController {
 
     @FXML
     private Label ratingValue;
+    @FXML private Rating starRating;
 
     @FXML
     private TextArea responseTextArea;
 
     @FXML
     private Button submitButton;
-
+    @FXML
+    public void initialize() {
+        // Configure the Rating control to be non-editable
+        starRating.setPartialRating(false);
+        starRating.setDisable(true); // Make it read-only
+    }
 
 
     public void setAvis(Avis avis) {
@@ -59,8 +60,9 @@ public class AddResponseController extends NavigateurController {
         professionalValue.setText(avis.getProfessional().getNameUser());
         dateValue.setText(avis.getDateAvis().toString());
         commentValue.setText(avis.getCommentaire());
-        ratingValue.setText(String.valueOf(avis.getNote()));
-
+        //ratingValue.setText(String.valueOf(avis.getNote()));
+        starRating.setRating(avis.getNote());
+        ratingValue.setText(avis.getNote() + "/5");
     }
     @FXML
     void handleBackButton(ActionEvent event) {

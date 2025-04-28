@@ -2,8 +2,8 @@ package test;
 
 import entities.Avis;
 import entities.Reponse;
-import services.AvisService;
-import services.ReponseService;
+import services.gestionAvis.AvisService;
+import services.gestionAvis.ReponseService;
 import services.UserService;
 
 import java.sql.SQLException;

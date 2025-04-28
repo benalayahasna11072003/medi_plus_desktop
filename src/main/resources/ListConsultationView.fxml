@@ -53,6 +53,7 @@
                         <items>
                             <MenuItem onAction="#handleNewAvis" text="Nouveau Avis"  />
                             <MenuItem onAction="#handleListAvis" text="List Des Avis" />
+                            <MenuItem onAction="#handleStatsAvis" text="Stats Des Avis" />
                         </items>
                     </MenuButton>
 

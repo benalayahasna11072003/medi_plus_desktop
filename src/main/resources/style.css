@@ -119,3 +119,12 @@
 .delete-button:pressed {
     -fx-background-color: #922B21;
 }
+
+.translate-button {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+}
+
+.translate-button > .label {
+    -fx-text-fill: white;
+}

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.Rating?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -20,13 +21,13 @@
             </padding>
 
             <Label text="Votre commentaire" />
-            <TextField fx:id="commentaireField" />
+            <TextArea fx:id="commentaireField" wrapText="true" prefHeight="120" />
 
             <Label text="Note" />
-            <TextField fx:id="noteField" />
-
-            <!--Label text="Date" />
-            <DatePicker fx:id="datePicker" prefWidth="400" /-->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Rating fx:id="starRating" rating="0" max="5" />
+                <Label fx:id="ratingValueLabel" text="0/5" />
+            </HBox>
         </VBox>
     </center>
     <bottom>

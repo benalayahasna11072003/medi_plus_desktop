@@ -5,7 +5,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entities.Avis;
 import entities.Reponse;
 import entities.Roles;
-import entities.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,19 +15,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.AvisService;
-import services.ReponseService;
+import services.gestionAvis.AvisService;
+import services.gestionAvis.ReponseService;
 import utils.SUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListAvisController extends NavigateurController {
@@ -232,7 +227,7 @@ public class ListAvisController extends NavigateurController {
 
     private void openReplyPopup(Avis avis) throws SQLException {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddResponsePopup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionAvis/AddResponsePopup.fxml"));
             Parent root = loader.load();
 
             // Get controller and set the review

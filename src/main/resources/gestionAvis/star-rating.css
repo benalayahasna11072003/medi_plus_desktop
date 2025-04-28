@@ -1,0 +1,22 @@
+/* ControlsFX Rating Control Styles */
+.rating > .container > .button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2px;
+    -fx-font-size: 18px;
+}
+
+/* Empty star color */
+.rating > .container > .button.empty {
+    -fx-text-fill: #dddddd;
+}
+
+/* Filled star color */
+.rating > .container > .button.filled {
+    -fx-text-fill: #ffcc00;
+}
+
+/* Add hover effect */
+.rating > .container > .button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,204,0,0.5), 5, 0.5, 0, 0);
+    -fx-cursor: hand;
+}

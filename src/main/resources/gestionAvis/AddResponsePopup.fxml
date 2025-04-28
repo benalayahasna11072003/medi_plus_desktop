@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import org.controlsfx.control.Rating?>
 <AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddResponseController">
     <children>
         <VBox layoutX="0.0" layoutY="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -83,11 +84,13 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="ratingValue" text="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Label>
+                                <!-- Rating -->
+                                <Label style="-fx-font-weight: bold;" text="Note:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <HBox alignment="CENTER_LEFT" spacing="10"  GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Rating fx:id="starRating" max="5" rating="0" />
+                                    <Label fx:id="ratingValue" text="0/5" />
+                                </HBox>
+
 
                                 <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="4">
                                     <font>

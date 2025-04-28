@@ -1,8 +1,10 @@
-package services;
+package services.gestionAvis;
 
 import entities.Avis;
 import entities.Reponse;
 import entities.User;
+import services.ICrud;
+import services.UserService;
 import utils.JDBConnection;
 
 import java.sql.Connection;
