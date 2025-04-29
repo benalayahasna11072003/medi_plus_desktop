@@ -6,16 +6,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import services.gestionConsultation.ConsultationService;
 import services.UserService;
 import utils.SUser;
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class AddConsultationController extends NavigateurController {
+    private PauseTransition pause;
 
     public Button enregistrerButton;
     private RendezVous rendezVous;
@@ -32,8 +33,7 @@ public class AddConsultationController extends NavigateurController {
     // Add our custom calendar component
     private CalendarComponent calendarComponent;
 
-    //@FXML
-  //  private Label aiRecommendationLabel;
+
 
     @FXML
     public void initialize() {
@@ -44,12 +44,17 @@ public class AddConsultationController extends NavigateurController {
         if (calendarContainer != null) {
             calendarContainer.getChildren().add(calendarComponent);
         }
+        // difinir pause time
+        pause = new PauseTransition(Duration.seconds(3));
 
-        // Add listener to reason field for real-time AI recommendations
         reasonField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() >= 10 && rendezVous != null && rendezVous.getProfessional() != null) {
-                // Only update recommendation when we have enough text to analyze
-                updateAIRecommendation(newValue);
+            if (pause != null) {
+                pause.stop();//a chaque fois ajout caractere // stop
+            }
+
+            if (newValue.length() >= 4 && rendezVous != null && rendezVous.getProfessional() != null) {
+                pause.setOnFinished(event -> updateAIRecommendation(newValue));
+                pause.playFromStart();
             }
         });
     }
@@ -59,10 +64,7 @@ public class AddConsultationController extends NavigateurController {
         calendarComponent.updateAIRecommendation(reason);
 
         // Show user feedback about the AI recommendation
-      /*  if (calendarComponent.getCurrentRecommendation() != null) {
-            //aiRecommendationLabel.setText(calendarComponent.getCurrentRecommendation().getExplanation());
-            //aiRecommendationLabel.setVisible(true);
-        }*/
+
     }
 
     @FXML
@@ -96,16 +98,6 @@ public class AddConsultationController extends NavigateurController {
                 showAlert("Erreur", "Le professionnel n'est pas disponible à cette date.");
                 return;
             }
-            if(selectedDate.isBefore(LocalDate.now())){
-                showAlert("Erreur", "Veuillez choisir une date à partir de demain.");
-                return;
-            }
-            if ( selectedDate.isEqual(LocalDate.now()))
-            {
-                showAlert("Erreur", "La date d'aujourd'hui n'est pas autorisée. Choisissez à partir de demain.");
-                return;
-            }
-
 
             // Get the AI recommendation to store with the consultation
             if (calendarComponent.getCurrentRecommendation() != null) {

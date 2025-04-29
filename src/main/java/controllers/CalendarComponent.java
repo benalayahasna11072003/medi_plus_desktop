@@ -10,8 +10,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -58,6 +60,9 @@ public class CalendarComponent extends BorderPane {
         monthView.setPrefHeight(500);
         monthView.setPrefWidth(800);
 
+        // Hide toolbar if possible - using a CSS approach
+        monthView.getStyleClass().add("hide-toolbar");
+
         // Create header
         Label headerLabel = new Label("Select Consultation Date");
         headerLabel.setFont(Font.font("System", FontWeight.BOLD, 14));
@@ -73,18 +78,21 @@ public class CalendarComponent extends BorderPane {
         statusLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
         statusLabel.setAlignment(Pos.CENTER);
 
+        // Add color legend to help users understand the calendar
+        HBox legendBox = createColorLegend();
+
         VBox topContainer = new VBox(10);
         topContainer.setAlignment(Pos.CENTER);
         topContainer.setPadding(new Insets(10));
-        topContainer.getChildren().addAll(headerLabel, recommendationLabel, statusLabel);
+        topContainer.getChildren().addAll(headerLabel, recommendationLabel, statusLabel, legendBox);
 
         // Create calendar for professional bookings
         professionalCalendar = new Calendar("Booked Consultations");
-        professionalCalendar.setStyle(Calendar.Style.STYLE1);
+        professionalCalendar.setStyle(Calendar.Style.STYLE1); // Red style for unavailable dates
 
         // Create calendar for AI recommendations
         recommendationCalendar = new Calendar("Recommended Dates");
-        recommendationCalendar.setStyle(Calendar.Style.STYLE2);
+        recommendationCalendar.setStyle(Calendar.Style.STYLE2); // Green style for recommended dates
 
         // Set up calendar source
         calendarSource = new CalendarSource("Consultation Calendar");
@@ -112,22 +120,43 @@ public class CalendarComponent extends BorderPane {
         getStyleClass().add("calendar-component");
     }
 
+    private HBox createColorLegend() {
+        HBox legendBox = new HBox(20);
+        legendBox.setAlignment(Pos.CENTER);
+        legendBox.setPadding(new Insets(5));
+        legendBox.getStyleClass().add("calendar-legend");
+
+        // Create legend for unavailable dates
+        Rectangle unavailableRect = new Rectangle(15, 15, Color.rgb(255, 204, 204)); // Light red for unavailable
+        Label unavailableLabel = new Label("Dates indisponibles");
+        HBox unavailableEntry = new HBox(5, unavailableRect, unavailableLabel);
+
+        // Create legend for recommended dates
+        Rectangle recommendedRect = new Rectangle(15, 15, Color.rgb(198, 246, 213)); // Light green for recommended
+        Label recommendedLabel = new Label("Dates recommandées");
+        HBox recommendedEntry = new HBox(5, recommendedRect, recommendedLabel);
+
+        // Create legend for selected date
+        Rectangle selectedRect = new Rectangle(15, 15, Color.rgb(179, 217, 255)); // Light blue for selected
+        selectedRect.setStroke(Color.rgb(0, 102, 204));
+        selectedRect.setStrokeWidth(2);
+        Label selectedLabel = new Label("Date sélectionnée");
+        HBox selectedEntry = new HBox(5, selectedRect, selectedLabel);
+
+        // Create legend for today's date
+        Rectangle todayRect = new Rectangle(15, 15, Color.rgb(230, 242, 255)); // Very light blue for today
+        Label todayLabel = new Label("Aujourd'hui");
+        HBox todayEntry = new HBox(5, todayRect, todayLabel);
+
+        legendBox.getChildren().addAll(unavailableEntry, recommendedEntry, selectedEntry, todayEntry);
+        return legendBox;
+    }
+
     private void updateStatusLabel(LocalDate date) {
         if (unavailableDates.contains(date)) {
             statusLabel.setText("Cette date n'est pas disponible.");
             statusLabel.setTextFill(Color.RED);
-        }
-        else if (date.isBefore(LocalDate.now()))
-        {
-            statusLabel.setText("Veuillez choisir une date à partir de demain.");
-            statusLabel.setTextFill(Color.RED);
-        }
-        else if ( date.isEqual(LocalDate.now()))
-        {
-            statusLabel.setText("La date d'aujourd'hui n'est pas autorisée. Choisissez à partir de demain.");
-            statusLabel.setTextFill(Color.RED);
-        }
-        else if (recommendedDates.contains(date)) {
+        } else if (recommendedDates.contains(date)) {
             statusLabel.setText("Date recommandée basée sur votre raison de consultation.");
             statusLabel.setTextFill(Color.GREEN);
         } else {
@@ -161,7 +190,7 @@ public class CalendarComponent extends BorderPane {
                 entry.changeStartDate(date);
                 entry.changeEndDate(date);
 
-                // Set color based on urgency
+                // Set title based on urgency
                 switch (currentRecommendation.getUrgencyLevel()) {
                     case URGENT:
                         entry.setTitle("URGENT");
@@ -230,7 +259,7 @@ public class CalendarComponent extends BorderPane {
                 unavailableDates.add(date);
 
                 // Create entry for the consultation
-                Entry<String> entry = new Entry<>("réservé");
+                Entry<String> entry = new Entry<>("Booked");
                 entry.setFullDay(true);
                 entry.changeStartDate(date);
                 entry.changeEndDate(date);

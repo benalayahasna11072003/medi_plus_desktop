@@ -122,13 +122,13 @@ public class ConsultationAIService {
                 + "Le médecin est un médecin généraliste. "
                 + "Pour votre analyse, sachez que les dates suivantes sont indisponibles : [" + indispoDatesStr + "]. "
                 + "Cependant, NE faites PAS mention de ces dates dans votre explication. "
-                + "Votre tâche est de déterminer uniquement le niveau d'urgence (URGENT, ÉLEVÉ, NORMAL, ROUTINIER) et de fournir des recommandations de planification. "
+                + "Votre tâche est de déterminer uniquement le niveau d'urgence (URGENT, HIGH, NORMAL, ROUTINE) et de fournir des recommandations de planification. "
+                + "N'utilisez que ces valeurs en anglais (URGENT, HIGH, NORMAL, ROUTINE) pour le niveau d'urgence. "
                 + "Assurez-vous d'inclure un jour de la semaine recommandé (0 = Lundi à 6 = Dimanche) en tenant compte de la disponibilité du médecin. "
                 + "Fournissez la réponse au format JSON avec les champs suivants : "
                 + "urgencyLevel, explanation (centrée uniquement sur le motif médical), recommendedDayOfWeek, recommendedTimeOfDay (MORNING, AFTERNOON, EVENING). "
                 + "Veillez à inclure tous les champs obligatoirement.";
     }
-
 
 
     private ConsultationRecommendation parseAIResponse(String aiResponse) {
@@ -137,8 +137,23 @@ public class ConsultationAIService {
             // Parse the AI response as a JsonObject directly
             JsonObject recommendation = gson.fromJson(aiResponse, JsonObject.class);
 
-            // Extract values from the JsonObject
-            UrgencyLevel urgency = UrgencyLevel.valueOf(recommendation.get("urgencyLevel").getAsString());
+            // Extract the urgency level string and normalize it
+            String urgencyStr = recommendation.get("urgencyLevel").getAsString();
+
+            // Map French urgency levels to our enum values
+            UrgencyLevel urgency;
+            if (urgencyStr.contains("LEV") || urgencyStr.equalsIgnoreCase("ÉLEVÉ") ||
+                    urgencyStr.equalsIgnoreCase("ELEVE")) {
+                urgency = UrgencyLevel.HIGH;
+            } else if (urgencyStr.contains("URG") || urgencyStr.equalsIgnoreCase("URGENT")) {
+                urgency = UrgencyLevel.URGENT;
+            } else if (urgencyStr.contains("ROUT") || urgencyStr.equalsIgnoreCase("ROUTINIER")) {
+                urgency = UrgencyLevel.ROUTINE;
+            } else {
+                // Default to NORMAL for any other case
+                urgency = UrgencyLevel.NORMAL;
+            }
+
             String explanation = recommendation.get("explanation").getAsString();
 
             // Process recommended days
@@ -157,7 +172,6 @@ public class ConsultationAIService {
                     new ArrayList<>());
         }
     }
-
     // Helper classes
     public enum UrgencyLevel {
         URGENT,  // Same day or next day
