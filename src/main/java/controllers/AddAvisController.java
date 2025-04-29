@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.controlsfx.control.Rating;
 import services.gestionAvis.AvisService;
 import services.UserService;
@@ -19,13 +21,16 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.Node;
 
 public class AddAvisController extends NavigateurController {
 
     private final AvisService avisService = new AvisService();
     private final UserService userSerivce = new UserService();
 
+    private List<Avis> avisLists;
     @FXML
     private TextArea commentField;
 
@@ -74,8 +79,26 @@ public class AddAvisController extends NavigateurController {
                 showAlert("Contenu inapproprié", "Votre commentaire contient des mots inappropriés. Veuillez modifier votre texte.");
                 return;
             }
+            long nbreAvis=avisLists.stream().filter(avis1 -> avis1.getProfessional().getId() == avis.getProfessional().getId() &&  avis1.getDateAvis().toLocalDate().isEqual(LocalDate.now())).count();
+            if(nbreAvis>=3){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Limite atteinte");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous avez déjà laissé 3 avis pour ce professionnel aujourd'hui.");
 
+                alert.showAndWait().ifPresent(response -> {
+                    // Close the dialog (child)
+                    Stage dialogStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    dialogStage.close();
 
+                    // Close the parent stage
+                    Window parentWindow = dialogStage.getOwner();
+                    if (parentWindow instanceof Stage) {
+                        ((Stage) parentWindow).close();
+                    }
+                });
+                return;
+            }
             avisService.insertOne(avis);
             String doctEmail = avis.getProfessional().getEmail();
             String doctName = avis.getProfessional().getNameUser();
@@ -107,6 +130,13 @@ public class AddAvisController extends NavigateurController {
 
     @FXML
     public void initialize() {
+        try{
+        List<Avis> avisList= avisService.selectAll();
+        avisList.stream().filter(avis -> avis.getUser().getId()==SUser.getUser().getId());
+        avisLists=avisList;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         // Initialize the ComboBox with professionals
         try {
             professionalCombo.getItems().addAll(
