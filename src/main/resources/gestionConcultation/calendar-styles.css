@@ -1,19 +1,84 @@
+/* Calendar Component Styles */
+.calendar-component {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+/* Status labels */
+.ai-recommendation {
+    -fx-text-fill: #2c5282;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+    -fx-background-color: #ebf8ff;
+    -fx-background-radius: 4px;
+    -fx-border-color: #bee3f8;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+}
+
+/* Calendar entry styles - These target the CalendarFX entry views */
+.calendar-component .style2 {
+    -fx-background-color: #48bb78 !important; /* For recommended dates */
+    -fx-text-fill: white !important;
+}
+
+.calendar-component .style1 {
+    -fx-background-color: #fc8181 !important; /* For unavailable dates */
+    -fx-text-fill: white !important;
+}
+
+/* Selected date styling */
 .calendar-component .month-view .date-cell:selected {
     -fx-background-color: #b3d9ff;
     -fx-border-color: #0066cc;
     -fx-border-width: 2px;
 }
 
+/* Unavailable date styling */
 .calendar-component .date-cell.unavailable {
     -fx-background-color: #ffcccc;
 }
 
+/* Today's date styling */
 .calendar-component .today {
     -fx-background-color: #e6f2ff;
 }
 
-/* Hide unnecessary elements */
-.calendar-component .toolbar {
+/* Calendar legend styles */
+.calendar-legend {
+    -fx-background-color: #f7fafc;
+    -fx-padding: 5px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-margin-top: 10px;
+    -fx-margin-bottom: 10px;
+}
+
+.calendar-hint {
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+    -fx-text-fill: #4a5568;
+}
+
+/* Hide toolbar */
+.hide-toolbar .toolbar {
     -fx-opacity: 0;
     -fx-pref-height: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+}
+
+/* Additional styling to make entries more visible */
+.calendar-component .month-view {
+    -fx-background-color: white;
+}
+
+/* Style for entry views */
+.entry-view {
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
 }
