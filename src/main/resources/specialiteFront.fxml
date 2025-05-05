@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.FrontController" prefWidth="1920" prefHeight="1080">
+    <children>
+        <VBox spacing="20" layoutX="20" layoutY="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" VBox.vgrow="ALWAYS">
+            <Label text="Blocs" styleClass="title-label"/>
+
+            <ListView fx:id="blocListView" prefHeight="150" styleClass="card-list"/>
+
+            <Label text="Spécialités" styleClass="title-label"/>
+
+            <ListView fx:id="specialiteListView" prefHeight="250" styleClass="card-list"/>
+        </VBox>
+    </children>
+</AnchorPane>
+

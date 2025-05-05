@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.AddUserController"
+      spacing="15" style="-fx-background-color: white;"
+      prefWidth="500" prefHeight="400">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Ajouter un nouvel utilisateur" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <GridPane vgap="15" hgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" prefWidth="150"/>
+            <ColumnConstraints minWidth="200" prefWidth="300"/>
+        </columnConstraints>
+
+        <Label text="Nom:" style="-fx-text-fill: #2c3e50;" 
+               GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="nameField" promptText="Entrez le nom"
+                  style="-fx-pref-height: 35;" 
+                  GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Email:" style="-fx-text-fill: #2c3e50;" 
+               GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="emailField" promptText="Entrez l'email"
+                  style="-fx-pref-height: 35;" 
+                  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Rôle:" style="-fx-text-fill: #2c3e50;" 
+               GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="roleComboBox" 
+                  style="-fx-pref-height: 35; -fx-pref-width: 300;" 
+                  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Mot de passe:" style="-fx-text-fill: #2c3e50;" 
+               GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <PasswordField fx:id="passwordField" promptText="Entrez le mot de passe"
+                      style="-fx-pref-height: 35;" 
+                      GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Confirmer mot de passe:" style="-fx-text-fill: #2c3e50;" 
+               GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirmez le mot de passe"
+                      style="-fx-pref-height: 35;" 
+                      GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+        <Button text="Ajouter" onAction="#handleAdd"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-pref-width: 150; -fx-pref-height: 40;"/>
+        <Button text="Annuler" onAction="#handleCancel"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-pref-width: 150; -fx-pref-height: 40;"/>
+    </HBox>
+</VBox> 

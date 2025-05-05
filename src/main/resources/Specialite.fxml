@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<AnchorPane prefHeight="844.0" prefWidth="1034.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controllers.SpecialiteController">
+    <HBox prefHeight="830.0" prefWidth="1020.0" spacing="20">
+
+        <!-- Left: Table View -->
+        <VBox alignment="TOP_CENTER" spacing="10" styleClass="card-style" VBox.vgrow="ALWAYS">
+            <Label text="Spécialités" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="68.0" />
+                </font>
+            </Label>
+            <TableView fx:id="tableviewSpecialite" prefHeight="700" prefWidth="820" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="nomCol" prefWidth="150.0" text="Nom" />
+                    <TableColumn fx:id="descriptionCol" prefWidth="200.0" text="Description" />
+                    <TableColumn fx:id="dureeCol" prefWidth="90.0" text="Durée" />
+                    <TableColumn fx:id="tarifCol" prefWidth="80.0" text="Tarif" />
+                    <TableColumn fx:id="blocCol" prefWidth="150.0" text="Bloc" />
+                    <TableColumn fx:id="statutCol" prefWidth="80.0" text="Statut" />
+                    <TableColumn fx:id="actionCol" prefWidth="150.0" text="Actions" />
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Right: Add Form -->
+        <VBox fx:id="formContainer" alignment="TOP_CENTER" prefWidth="200.0" spacing="10" styleClass="card-style" VBox.vgrow="ALWAYS">
+            <Label text="Add Spécialité" styleClass="title-label">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+
+            <TextField fx:id="nomField" promptText="Nom" />
+            <TextField fx:id="descriptionField" promptText="Description" />
+            <TextField fx:id="dureeField" promptText="Durée (min)" />
+            <TextField fx:id="tarifField" promptText="Tarif (DT)" />
+
+            <ComboBox fx:id="blocComboBox" promptText="Bloc" />
+
+            <ComboBox fx:id="statutComboBox" promptText="Statut">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Actif"/>
+                        <String fx:value="Inactif"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Button fx:id="updateButton" disable="true" onAction="#handleUpdateAction" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" styleClass="upload-btn" text="Update" />
+            <Button fx:id="addButton" onAction="#handleAdd" styleClass="add-btn" text="Ajouter" />
+        </VBox>
+
+    </HBox>
+</AnchorPane>

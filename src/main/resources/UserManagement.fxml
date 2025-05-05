@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.UserManagementController"
+      spacing="10" style="-fx-background-color: white;">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="User Management" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;"/>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Add New User" onAction="#handleAddUser"
+                style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+        <Button text="Refresh" onAction="#handleRefresh"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    </HBox>
+
+    <TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="200"/>
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="250"/>
+            <TableColumn fx:id="roleColumn" text="Role" prefWidth="150"/>
+            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100"/>
+            <TableColumn fx:id="modifyColumn" text="Modify" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox> 
