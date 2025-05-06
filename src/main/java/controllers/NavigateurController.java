@@ -93,7 +93,7 @@ public class NavigateurController {
     @FXML
     public void handleStatsAvis(ActionEvent event) {
         // Check if the current user is not a professional
-        if (!SUser.getUser().getEmail().equals("pro@gmail.com")) {
+        if (!SUser.getUser().getRole().equals(Roles.professionnel)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Access Denied");
             alert.setHeaderText(null);
