@@ -78,6 +78,7 @@ public class UserService implements ICrud<User> {
             user.setEmail(rs.getString("email"));
             user.setPassword(rs.getString("password"));
             user.setRole(Roles.valueOf(rs.getString("role")));//.trim()));
+
             return user;
         } else {
             return null; // No user found with the given email

@@ -8,14 +8,14 @@ import java.sql.*;
 
 public class SUser {
 
-    private static final String nameUser = "test user";
-    //private static final String email = "user@gmail.com";//professional
 
-    private static final String email = "user@gmail.com";//patient
+    private static final String nameUser = "rahma elaid";
+    private static final String email = "rahmaelaid6@gmail.com";//patient
+    //private static final String email = "pro@gmail.com";//professionl
     private static final String password = "123123";
 
     private static final Roles role = Roles.professionnel;
-    private static final int id = 0;
+    //private static final int id = 0;
 
 
     private static User user;

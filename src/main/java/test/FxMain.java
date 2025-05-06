@@ -18,7 +18,7 @@ public class FxMain extends Application {
     public void start(Stage stage) throws Exception {
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListConsultationView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionConcultation/ListConsultationView.fxml"));
 
 
         Parent root = loader.load();

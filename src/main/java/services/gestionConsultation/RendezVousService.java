@@ -1,8 +1,10 @@
-package services;
+package services.gestionConsultation;
 
 import entities.Consultation;
 import entities.RendezVous;
 import entities.User;
+import services.ICrud;
+import services.UserService;
 import utils.JDBConnection;
 
 import java.sql.Connection;
@@ -12,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RendezVousService implements ICrud<RendezVous>{
+public class RendezVousService implements ICrud<RendezVous> {
 
 
     private final UserService userService = new UserService();

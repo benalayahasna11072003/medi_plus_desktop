@@ -1,9 +1,11 @@
-package services;
+package services.gestionConsultation;
 
 import entities.Consultation;
 import entities.Prescription;
 import entities.RendezVous;
 import entities.User;
+import services.ICrud;
+import services.UserService;
 import utils.JDBConnection;
 
 import java.sql.Connection;
@@ -13,16 +15,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultationService implements ICrud<Consultation>{
+public class ConsultationService implements ICrud<Consultation> {
 
     UserService userService = new UserService();
     private Connection cnx = JDBConnection.getInstance().getCnx();
+
+
+
     @Override
     public void insertOne(Consultation consultation) throws SQLException {
         String req = "INSERT INTO `consultation`( `id_user`, `id_professionnel`, `rendez_vous_id`,`date_consultation`, `reason`) VALUES (?, ?, ?, ?, ?)";
         //String req = "INSERT INTO `consultation`( `id_user`, `id_professionnel`,`date_consultation`, `reason`) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(req);
-
+        System.out.println("user id"+ consultation.getUser().getId() );
+        System.out.println("pro id"+ consultation.getProfessionnel().getId() );
+        System.out.println("rdv"+ consultation.getRendezVous().getId() );
+        System.out.println("date "+ consultation.getDateConsultation());
+        System.out.println("reason "+ consultation.getReason());
         ps.setInt(1, consultation.getUser().getId());
         ps.setInt(2, consultation.getProfessionnel().getId());
         ps.setInt(3, consultation.getRendezVous().getId());
@@ -164,4 +173,33 @@ public class ConsultationService implements ICrud<Consultation>{
 
     }
 
+    public List<Consultation> findByProfessional(int professionalId) throws SQLException {
+        List<Consultation> consultations = new ArrayList<>();
+        String query = "SELECT * FROM consultation WHERE id_professionnel = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, professionalId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Consultation consultation = new Consultation();
+                consultation.setId(rs.getInt("id"));
+                consultation.setReason(rs.getString("reason"));
+                consultation.setDateConsultation(rs.getDate("date_consultation").toLocalDate());
+
+                // Load the professional user
+                User professional = userService.findById(rs.getInt("id_professionnel"));
+                consultation.setProfessionnel(professional);
+
+                // Load the patient user
+                User patient = userService.findById(rs.getInt("id_user"));
+                consultation.setUser(patient);
+
+                // Add to list
+                consultations.add(consultation);
+            }
+        }
+
+        return consultations;
+    }
 }

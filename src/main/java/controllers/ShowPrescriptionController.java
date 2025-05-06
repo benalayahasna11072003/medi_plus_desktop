@@ -1,29 +1,19 @@
 package controllers;
 
 import entities.Prescription;
-import entities.Prescription;
-import entities.Reponse;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import utils.SUser;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+
 public class ShowPrescriptionController {
     public Label descriptionValue;
-
-
-
-
+    public Label prescriptionDetailsLabel;
 
 
     private Prescription prescription;
@@ -31,7 +21,8 @@ public class ShowPrescriptionController {
 
     public void setData(Prescription prescription) {
         this.prescription = prescription;
-
+        String patientName = prescription.getConsultation().getUser().getNameUser();
+        prescriptionDetailsLabel.setText("Détails de l’ordonnance de "+patientName+" :");
         populateData();
     }
 
@@ -45,19 +36,13 @@ public class ShowPrescriptionController {
 
 
 
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+
 
     // Static method to open the popup
     public static void showPrescriptionDetails(Prescription prescription) {
         try {
             // Load FXML
-            FXMLLoader loader = new FXMLLoader(ShowPrescriptionController.class.getResource("/ShowPrescriptionsDetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(ShowPrescriptionController.class.getResource("/gestionConcultation/ShowPrescriptionsDetails.fxml"));
             BorderPane root = loader.load();
 
             // Get controller
@@ -67,7 +52,7 @@ public class ShowPrescriptionController {
             // Create stage
             Stage popup = new Stage();
             popup.initModality(Modality.APPLICATION_MODAL);
-            popup.setTitle("Détails de l'avis");
+            popup.setTitle("Prescription Details");
             popup.setResizable(false);
 
             // Set scene
@@ -87,4 +72,12 @@ public class ShowPrescriptionController {
         }
 
     }
+    /*
+        private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }*/
 }

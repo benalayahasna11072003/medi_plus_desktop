@@ -4,7 +4,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entities.Consultation;
 import entities.Roles;
-import entities.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,12 +17,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import services.ConsultationService;
+import services.gestionConsultation.ConsultationService;
 import utils.SUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class ListConsultationController extends NavigateurController {
@@ -243,7 +241,7 @@ public class ListConsultationController extends NavigateurController {
 
     private void handleEditConsultation(Consultation consultation) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditConsultationForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestionConcultation/EditConsultationForm.fxml"));
             Parent root = loader.load();
 
             // Get controller and set the consultation

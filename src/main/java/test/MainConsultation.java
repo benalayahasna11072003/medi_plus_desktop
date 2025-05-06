@@ -4,13 +4,12 @@ package test;
 import entities.Consultation;
 
 import entities.Prescription;
-import services.ConsultationService;
-import services.PrescriptionService;
+import services.gestionConsultation.ConsultationService;
+import services.gestionConsultation.PrescriptionService;
 import services.UserService;
 
 
 import java.sql.SQLException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
